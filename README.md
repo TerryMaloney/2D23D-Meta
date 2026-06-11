@@ -1,5 +1,7 @@
 # StatementClear
 
+[![verify](https://github.com/TerryMaloney/spiral-blog/actions/workflows/verify.yml/badge.svg)](https://github.com/TerryMaloney/spiral-blog/actions/workflows/verify.yml)
+
 Privacy-first bank statement converter: PDF statements → CSV · Excel (XLSX) ·
 QBO · QFX · OFX · Xero — parsed **entirely in the browser** (files never touch
 a server; there is no upload endpoint in this codebase) and **reconciled
