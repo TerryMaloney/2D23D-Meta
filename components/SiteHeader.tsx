@@ -13,10 +13,13 @@ export function SiteHeader() {
           </span>
         </Link>
         <nav className="flex items-center gap-4 text-sm sm:gap-6">
+          <Link href="/audit/" className="text-ink-soft hover:text-ink">
+            History Audit
+          </Link>
           <Link href="/csv-to-qbo/" className="text-ink-soft hover:text-ink">
             CSV→QBO
           </Link>
-          <Link href="/guides/" className="text-ink-soft hover:text-ink">
+          <Link href="/guides/" className="hidden text-ink-soft hover:text-ink sm:inline">
             Guides
           </Link>
           <Link href="/pricing/" className="text-ink-soft hover:text-ink">

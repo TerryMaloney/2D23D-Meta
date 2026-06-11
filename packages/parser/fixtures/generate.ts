@@ -1361,6 +1361,272 @@ async function regZCard(): Promise<void> {
   });
 }
 
+/* ──────────────── multi-statement audit fixture sets ──────────────── */
+
+interface MonthTx {
+  date: string;
+  description: string;
+  amountCents: number;
+}
+
+/** Deterministic month of transactions with recurring patterns. */
+function genAuditMonth(
+  year: number,
+  month: number,
+  seedSalt: number,
+  opts: { payroll?: boolean; subscription?: boolean; fee?: boolean } = {},
+): MonthTx[] {
+  const rng = mulberry32(year * 100 + month + seedSalt * 7919);
+  const mm = String(month).padStart(2, "0");
+  const d = (day: number) => `${year}-${mm}-${String(day).padStart(2, "0")}`;
+  const txs: MonthTx[] = [];
+  if (opts.payroll !== false) {
+    txs.push({ date: d(1), description: "PAYROLL DIRECT DEP ACME LLC", amountCents: 250000 });
+    txs.push({ date: d(15), description: "PAYROLL DIRECT DEP ACME LLC", amountCents: 250000 });
+  }
+  if (opts.subscription !== false) {
+    txs.push({ date: d(5), description: "ORBIT WIRELESS", amountCents: -4500 });
+  }
+  if (opts.fee !== false) {
+    txs.push({ date: d(28), description: "MONTHLY SERVICE CHARGE", amountCents: -1200 });
+  }
+  // Keep recurring-pattern descriptions out of the random pool so the
+  // audit's recurrence detection sees clean signals.
+  const pool = MERCHANTS.filter((m) => m !== "ORBIT WIRELESS");
+  for (let i = 0; i < 6; i++) {
+    txs.push({
+      date: d(3 + Math.floor(rng() * 24)),
+      description: pick(rng, pool),
+      amountCents: -cents(rng, 800, 40000),
+    });
+  }
+  txs.sort((a, b) => a.date.localeCompare(b.date));
+  return txs;
+}
+
+function lastDay(year: number, month: number): string {
+  const last = new Date(Date.UTC(year, month, 0)).getUTCDate();
+  return `${year}-${String(month).padStart(2, "0")}-${String(last).padStart(2, "0")}`;
+}
+
+function monthName(month: number): string {
+  return ["January","February","March","April","May","June","July","August","September","October","November","December"][month - 1];
+}
+
+/** Render a compact Chase-style monthly statement; returns the closing balance. */
+async function writeMonthly(
+  outDir: string,
+  name: string,
+  opts: {
+    accountLabel: string; // e.g. "...7204"
+    accountTitle: string; // "CHECKING" etc.
+    periodStart: string;
+    periodEnd: string;
+    openingCents: number;
+    txs: MonthTx[];
+  },
+): Promise<number> {
+  const b = await Builder.create();
+  const [ys, ms, ds] = opts.periodStart.split("-").map(Number);
+  const [ye, me, de] = opts.periodEnd.split("-").map(Number);
+  b.text(50, 50, "JPMorgan Chase Bank, N.A.", 12, true);
+  b.text(50, 66, `${opts.accountTitle} STATEMENT`, 9);
+  b.text(
+    50,
+    90,
+    `${monthName(ms)} ${ds}, ${ys} through ${monthName(me)} ${de}, ${ye}`,
+    10,
+  );
+  b.text(380, 90, `Account Number: ${opts.accountLabel}`, 9);
+
+  let balance = opts.openingCents;
+  const deposits = opts.txs.filter((t) => t.amountCents > 0).reduce((s, t) => s + t.amountCents, 0);
+  const withdrawals = opts.txs.filter((t) => t.amountCents < 0).reduce((s, t) => s + t.amountCents, 0);
+  const closing = opts.openingCents + deposits + withdrawals;
+
+  b.text(50, 124, "CHECKING SUMMARY", 11, true);
+  b.rule(140);
+  b.text(50, 148, "Beginning Balance");
+  b.right(400, 148, `$${usFmt(opts.openingCents)}`);
+  b.text(50, 163, "Deposits and Additions");
+  b.right(400, 163, `$${usFmt(deposits)}`);
+  b.text(50, 178, "Electronic Withdrawals");
+  b.right(400, 178, `-$${usFmt(Math.abs(withdrawals))}`);
+  b.text(50, 193, "Ending Balance");
+  b.right(400, 193, `$${usFmt(closing)}`);
+
+  b.text(50, 226, "TRANSACTION DETAIL", 11, true);
+  b.rule(242);
+  b.text(50, 252, "DATE", 8, true);
+  b.text(100, 252, "DESCRIPTION", 8, true);
+  b.right(460, 252, "AMOUNT", 8, true);
+  b.right(545, 252, "BALANCE", 8, true);
+
+  let y = 270;
+  for (const t of opts.txs) {
+    balance += t.amountCents;
+    b.text(50, y, mmdd(t.date));
+    b.text(100, y, t.description);
+    b.right(460, y, usFmt(t.amountCents));
+    b.right(545, y, usFmt(balance));
+    y += 15;
+  }
+
+  fs.mkdirSync(outDir, { recursive: true });
+  fs.writeFileSync(path.join(outDir, `${name}.pdf`), await b.save());
+  return closing;
+}
+
+/**
+ * Test set (fixtures/audit/): twelve continuous months (incl. a Dec→Jan
+ * year boundary), one missing month, one duplicate statement, one
+ * overlapping period sharing transactions (duplicate-transaction warnings),
+ * one balance discontinuity, a second account, a mixed credit-card
+ * statement, and one unreadable file.
+ */
+async function auditTestSet(): Promise<void> {
+  const dir = path.join(__dirname, "audit");
+  fs.rmSync(dir, { recursive: true, force: true });
+
+  // Account A: 2024-12 .. 2025-12, skipping 2025-06 (missing period).
+  let opening = 412055;
+  const closings: Record<string, number> = {};
+  const months: [number, number][] = [[2024, 12]];
+  for (let m = 1; m <= 12; m++) months.push([2025, m]);
+  for (const [y, m] of months) {
+    if (y === 2025 && m === 6) continue; // missing month
+    const key = `${y}-${String(m).padStart(2, "0")}`;
+    // Inject a balance discontinuity: November opens $500.00 too high.
+    if (y === 2025 && m === 11) opening += 50000;
+    const txs = genAuditMonth(y, m, 1);
+    const closing = await writeMonthly(dir, `acct-a-${key}`, {
+      accountLabel: "...7204",
+      accountTitle: "CHECKING",
+      periodStart: `${key}-01`,
+      periodEnd: lastDay(y, m),
+      openingCents: opening,
+      txs,
+    });
+    closings[key] = closing;
+    opening = closing;
+  }
+
+  // Duplicate statement: exact copy of March.
+  fs.copyFileSync(path.join(dir, "acct-a-2025-03.pdf"), path.join(dir, "acct-a-2025-03-copy.pdf"));
+
+  // Overlapping mid-month statement sharing September transactions.
+  const septTxs = genAuditMonth(2025, 9, 1);
+  const overlapTxs = septTxs.filter((t) => Number(t.date.slice(8, 10)) >= 15);
+  // Recompute its opening so its own chain still verifies.
+  const septOpening = closings["2025-08"];
+  let runUp = septOpening;
+  for (const t of septTxs) if (Number(t.date.slice(8, 10)) < 15) runUp += t.amountCents;
+  await writeMonthly(dir, "acct-a-2025-09-overlap", {
+    accountLabel: "...7204",
+    accountTitle: "CHECKING",
+    periodStart: "2025-09-15",
+    periodEnd: "2025-09-30",
+    openingCents: runUp,
+    txs: overlapTxs,
+  });
+
+  // Account B: a separate savings account, three continuous months.
+  let bOpening = 1200000;
+  for (let m = 1; m <= 3; m++) {
+    bOpening = await writeMonthly(dir, `acct-b-2025-0${m}`, {
+      accountLabel: "...8166",
+      accountTitle: "SAVINGS",
+      periodStart: `2025-0${m}-01`,
+      periodEnd: lastDay(2025, m),
+      openingCents: bOpening,
+      txs: genAuditMonth(2025, m, 2, { subscription: false, fee: false }),
+    });
+  }
+
+  // Mixed: one credit-card statement (different account type).
+  {
+    const opening = 125040;
+    const { txs, purchases, payments } = genCard(141, {
+      count: 12,
+      periodStart: "2025-01-05",
+      periodEnd: "2025-02-04",
+      paymentCount: 1,
+    });
+    const closing = opening + purchases + payments;
+    const b = await Builder.create();
+    b.text(50, 50, "Chase Card Services", 12, true);
+    b.text(50, 66, "JPMorgan Chase Bank, N.A.");
+    b.text(50, 88, "Opening/Closing Date 01/05/25 - 02/04/25", 9);
+    b.text(380, 88, "Account Number: ...9913", 9);
+    b.text(50, 120, "ACCOUNT SUMMARY", 11, true);
+    b.text(50, 146, "Previous Balance");
+    b.right(400, 146, `$${usFmt(opening)}`);
+    b.text(50, 161, "Payments and Credits");
+    b.right(400, 161, `-$${usFmt(Math.abs(payments))}`);
+    b.text(50, 176, "Purchases");
+    b.right(400, 176, `+$${usFmt(purchases)}`);
+    b.text(50, 191, "New Balance");
+    b.right(400, 191, `$${usFmt(closing)}`);
+    b.text(50, 210, "Minimum Payment Due: $40.00  Payment Due Date: 03/01/25", 9);
+    b.text(50, 240, "ACCOUNT ACTIVITY", 11, true);
+    let y = 268;
+    for (const t of txs) {
+      b.text(50, y, mmdd(t.date));
+      b.text(105, y, t.description);
+      b.right(545, y, usFmt(t.amountCents));
+      y += 15;
+    }
+    fs.writeFileSync(path.join(dir, "card-2025-01.pdf"), await b.save());
+  }
+
+  // An unreadable file among valid statements.
+  fs.writeFileSync(path.join(dir, "corrupt.pdf"), "%PDF-1.4 not really a pdf");
+  console.log("✓ audit test set");
+}
+
+/**
+ * Demo set (public/samples/audit/): a clean, instructive 12-month story —
+ * continuous coverage with ONE missing month, a recurring subscription and
+ * payroll, a monthly service fee, and one small overlap statement that
+ * triggers a potential-duplicate warning. Fully synthetic.
+ */
+async function auditDemoSet(): Promise<void> {
+  const dir = path.join(__dirname, "..", "..", "..", "public", "samples", "audit");
+  fs.rmSync(dir, { recursive: true, force: true });
+  let opening = 521540;
+  for (let m = 1; m <= 12; m++) {
+    if (m === 7) continue; // the missing month the demo highlights
+    const key = `2025-${String(m).padStart(2, "0")}`;
+    opening = await writeMonthly(dir, `sample-${key}`, {
+      accountLabel: "...4410",
+      accountTitle: "CHECKING",
+      periodStart: `${key}-01`,
+      periodEnd: lastDay(2025, m),
+      openingCents: opening,
+      txs: genAuditMonth(2025, m, 3),
+    });
+  }
+  // Small overlap statement for the duplicate-transaction demonstration.
+  const octTxs = genAuditMonth(2025, 10, 3).filter((t) => Number(t.date.slice(8, 10)) >= 20);
+  let runUp = 0;
+  for (const t of genAuditMonth(2025, 10, 3)) if (Number(t.date.slice(8, 10)) < 20) runUp += t.amountCents;
+  // Opening = September close + pre-20th October activity.
+  let septClose = 521540;
+  for (let m = 1; m <= 9; m++) {
+    if (m === 7) continue;
+    for (const t of genAuditMonth(2025, m, 3)) septClose += t.amountCents;
+  }
+  await writeMonthly(dir, "sample-2025-10-extra", {
+    accountLabel: "...4410",
+    accountTitle: "CHECKING",
+    periodStart: "2025-10-20",
+    periodEnd: "2025-10-31",
+    openingCents: septClose + runUp,
+    txs: octTxs,
+  });
+  console.log("✓ audit demo set");
+}
+
 /* ─────────────────────────── main ─────────────────────────── */
 
 async function main(): Promise<void> {
@@ -1380,6 +1646,8 @@ async function main(): Promise<void> {
   await multiAccount();
   await sectionedSample();
   await regZCard();
+  await auditTestSet();
+  await auditDemoSet();
   console.log("All fixtures generated.");
 }
 

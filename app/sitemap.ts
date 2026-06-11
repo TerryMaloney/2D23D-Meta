@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     page("/", 1),
     page("/csv-to-qbo/", 0.9),
+    page("/audit/", 0.9),
     page("/pdf-to-csv/", 0.9),
     page("/pdf-to-excel/", 0.9),
     page("/pdf-to-qbo/", 0.9),
