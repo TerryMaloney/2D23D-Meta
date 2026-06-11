@@ -11,7 +11,8 @@
     "test:watch": "vitest",
     "fixtures": "tsx packages/parser/fixtures/generate.ts",
     "e2e": "playwright test",
-    "serve:out": "node scripts/serve-out.mjs"
+    "serve:out": "node scripts/serve-out.mjs",
+    "validate:statements": "tsx scripts/validate-statements.ts"
   },
   "dependencies": {
     "next": "16.2.9",

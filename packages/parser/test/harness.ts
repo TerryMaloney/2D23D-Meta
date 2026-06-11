@@ -13,9 +13,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const PDF_DIR = path.join(__dirname, "..", "fixtures", "pdfs");
 export const GOLDEN_DIR = path.join(__dirname, "..", "fixtures", "golden");
 
-export async function loadRawPages(pdfPath: string, password?: string): Promise<RawPage[]> {
+export async function loadRawPages(
+  pdf: string | Uint8Array,
+  password?: string,
+): Promise<RawPage[]> {
   const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
-  const data = new Uint8Array(fs.readFileSync(pdfPath));
+  const data = typeof pdf === "string" ? new Uint8Array(fs.readFileSync(pdf)) : pdf;
   const doc = await pdfjs.getDocument({
     data,
     password,

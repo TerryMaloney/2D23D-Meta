@@ -1,0 +1,123 @@
+{
+  "description": "Legitimately sourced public statement documents used for real-world parser validation. Provenance classes: 'official-bank-sample' (specimen published by the institution itself), 'educational-sample' (financial-literacy material), 'government-model-form' (regulatory model form). None of these are real customer statements. Files with committable=false live only in the gitignored cache/ directory and can be re-fetched from sourceUrl; committable=true files (US federal government works, public domain under 17 U.S.C. § 105) are stored in committed/.",
+  "retrievalDate": "2026-06-11",
+  "entries": [
+    {
+      "file": "cfpb-sample-credit-card-statement.pdf",
+      "sourceUrl": "https://files.consumerfinance.gov/f/documents/cfpb_building_block_activities_sample-credit-card-statement_handout.pdf",
+      "sourceOrganization": "Consumer Financial Protection Bureau (US federal agency)",
+      "institution": "fictional (CFPB teaching specimen)",
+      "statementType": "credit-card",
+      "provenance": "educational-sample",
+      "licenseBasis": "US federal government work — public domain (17 U.S.C. § 105)",
+      "sha256": "755073d4d13732eb9bd9b340c6ff28325741835c369a6c8b58b3f4650ffed52d",
+      "committable": true,
+      "expected": { "outcome": "UNRECOGNIZED_LAYOUT" },
+      "limitations": "Stylized teaching graphic with callout annotations, not a bank-generated layout; transactions are not in a date-led table the engine recognizes."
+    },
+    {
+      "file": "cfpb-credit-card-statement-poster.pdf",
+      "sourceUrl": "https://files.consumerfinance.gov/f/documents/cfpb_building_blocks_activities_understanding-credit-card-statement_poster.pdf",
+      "sourceOrganization": "Consumer Financial Protection Bureau (US federal agency)",
+      "institution": "fictional (CFPB teaching specimen)",
+      "statementType": "credit-card",
+      "provenance": "educational-sample",
+      "licenseBasis": "US federal government work — public domain (17 U.S.C. § 105)",
+      "sha256": "a4f240af00708caaf0f6b064f2ad0684e40fce629d84715688917db542f81fd8",
+      "committable": true,
+      "expected": { "outcome": "UNRECOGNIZED_LAYOUT" },
+      "limitations": "Poster variant of the same teaching specimen; annotation-heavy layout."
+    },
+    {
+      "file": "fed-g18g-periodic-statement.pdf",
+      "sourceUrl": "https://www.federalreserve.gov/DCCA/RegulationZ/20070523/g18g.pdf",
+      "sourceOrganization": "Board of Governors of the Federal Reserve System",
+      "institution": "model form (Regulation Z G-18(G))",
+      "statementType": "credit-card",
+      "provenance": "government-model-form",
+      "licenseBasis": "US federal government work — public domain (17 U.S.C. § 105)",
+      "sha256": "b2f388f0e37da0f295740ec54d1cf069bae1217abbcb51058b15fe945100d1b7",
+      "committable": true,
+      "expected": { "outcome": "UNRECOGNIZED_LAYOUT" },
+      "limitations": "Regulatory model form for disclosure layout; the 2007 proposal-era PDF carries little machine-readable transaction structure."
+    },
+    {
+      "file": "carson-bank-sample-statement.pdf",
+      "sourceUrl": "https://www.carsonbank.com/wp-content/uploads/2021/01/Sample-Statement.pdf",
+      "sourceOrganization": "Carson Bank (Kansas)",
+      "institution": "Carson Bank",
+      "statementType": "checking",
+      "provenance": "official-bank-sample",
+      "licenseBasis": "publicly posted bank specimen; redistribution not explicitly granted — cache only",
+      "sha256": "f1aa9c97ef0a64fec8fac14f93153d10d1e10c305287d8400db2c2288d14fe67",
+      "committable": false,
+      "expected": { "outcome": "parsed", "minTransactions": 50 },
+      "limitations": "6-page bank-generated specimen; the genuine article for layout testing."
+    },
+    {
+      "file": "commerce-bank-statement-sample.pdf",
+      "sourceUrl": "https://www.commercebank.com/-/media/cb/pdf/personal/bank/statement_sample1.pdf?revision=54d56c85-b8e2-40a4-bd17-e09697b71bc6&modified=20211119170100",
+      "sourceOrganization": "Commerce Bank",
+      "institution": "Commerce Bank",
+      "statementType": "checking",
+      "provenance": "official-bank-sample",
+      "licenseBasis": "publicly posted bank specimen; redistribution not explicitly granted — cache only",
+      "sha256": "53cb0d6fcea0691c567f874309df843df7d7386842a5443907825fc3ddeb235c",
+      "committable": false,
+      "expected": { "outcome": "parsed", "minTransactions": 3 },
+      "limitations": "Single-page annotated specimen with a small transaction table."
+    },
+    {
+      "file": "stpaul-how-to-read-bank-statement.pdf",
+      "sourceUrl": "https://www.stpaul.gov/sites/default/files/Media%20Root/Parks%20&%20Recreation/Grad-Ready_How-to-Read-Bank-Statement.pdf",
+      "sourceOrganization": "City of Saint Paul, MN (Parks & Recreation, Grad-Ready program)",
+      "institution": "fictional (teaching specimen)",
+      "statementType": "checking",
+      "provenance": "educational-sample",
+      "licenseBasis": "municipal educational material; redistribution not explicitly granted — cache only",
+      "sha256": "83173761a37b541438dd00ce3994a33c31f4814d08be0a52b7627acdc2be39e3",
+      "committable": false,
+      "expected": { "outcome": "parsed", "minTransactions": 3 },
+      "limitations": "Educational handout containing a small fictional statement table."
+    },
+    {
+      "file": "moneymentors-reading-bank-statement.pdf",
+      "sourceUrl": "https://moneymentors.ca/wp-content/uploads/Reading-a-Bank-Statement-Money-Management-for-12-16-Year-Olds.pdf",
+      "sourceOrganization": "Money Mentors (Alberta non-profit)",
+      "institution": "fictional (teaching specimen)",
+      "statementType": "checking",
+      "provenance": "educational-sample",
+      "licenseBasis": "non-profit educational material; redistribution not explicitly granted — cache only",
+      "sha256": "9623a65dfe337a7d3eb1b857918b10ca9fb57a303a6cf456dc4101243e802a0a",
+      "committable": false,
+      "expected": { "outcome": "NOT_A_STATEMENT" },
+      "limitations": "Lesson booklet; the statement figure is embedded as an image, so there is no extractable transaction text."
+    },
+    {
+      "file": "saskmoney-sample-credit-card-statements.pdf",
+      "sourceUrl": "https://saskmoney.ca/wp-content/uploads/2020/10/resources/types-of-payment-cards/Sample%20Credit%20Card%20Statements.pdf",
+      "sourceOrganization": "SaskMoney (Saskatchewan financial literacy)",
+      "institution": "fictional (teaching specimen)",
+      "statementType": "credit-card",
+      "provenance": "educational-sample",
+      "licenseBasis": "educational material; redistribution not explicitly granted — cache only",
+      "sha256": "8288d899ab144550b20fec5426b96a7a6f66420327578b6d36cf926417086f39",
+      "committable": false,
+      "expected": { "outcome": "SCANNED_PDF" },
+      "limitations": "Image-only pages — exercises the scanned-PDF detector, which is its value as a fixture."
+    },
+    {
+      "file": "uga-sample-credit-card-statement.pdf",
+      "sourceUrl": "https://www.fcs.uga.edu/docs/credit_ho_5.pdf",
+      "sourceOrganization": "University of Georgia, Family & Consumer Sciences",
+      "institution": "fictional (teaching specimen)",
+      "statementType": "credit-card",
+      "provenance": "educational-sample",
+      "licenseBasis": "university educational material; redistribution not explicitly granted — cache only",
+      "sha256": "60487b86d323ef2f3f2d91f68f99eea9ced7c74e3b82a3b064fd89574fd561c1",
+      "committable": false,
+      "expected": { "outcome": "NOT_A_STATEMENT" },
+      "limitations": "Multi-page handout; statement figure lacks a date-led transaction table the engine can anchor on."
+    }
+  ]
+}

@@ -44,3 +44,7 @@ next-env.d.ts
 /out/
 /test-results/
 /playwright-report/
+
+# private real-statement validation (never committed)
+.private-statement-validation/
+packages/parser/fixtures/real/cache/
