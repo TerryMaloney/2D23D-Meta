@@ -169,13 +169,19 @@ export function Converter() {
               >
                 Choose a PDF
               </button>
-              <a
-                href="/sample-statement.pdf"
-                download
-                className="text-sm text-ink-soft underline hover:text-ink"
+              <button
+                type="button"
+                onClick={async () => {
+                  // Same-origin fetch of the bundled synthetic sample; it
+                  // runs through the real production parse path.
+                  const res = await fetch("/sample-statement.pdf");
+                  const buf = await res.arrayBuffer();
+                  void handleFile(new File([buf], "sample-statement.pdf", { type: "application/pdf" }));
+                }}
+                className="rounded-sm border border-ledger px-5 py-2.5 text-sm font-medium text-ledger hover:bg-ledger hover:text-white"
               >
-                or download a sample statement to try
-              </a>
+                Try a sample statement
+              </button>
             </div>
             <input
               ref={fileInput}
