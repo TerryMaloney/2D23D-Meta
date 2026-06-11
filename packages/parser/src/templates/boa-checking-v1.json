@@ -1,0 +1,15 @@
+{
+  "id": "boa-checking-v1",
+  "bankName": "Bank of America",
+  "accountType": "checking",
+  "identify": {
+    "anyOf": ["Bank of America"],
+    "layoutHints": ["Deposits and other additions", "Withdrawals and other subtractions"]
+  },
+  "openingLabels": ["beginning balance"],
+  "closingLabels": ["ending balance"],
+  "creditTotalLabels": ["total deposits and other additions"],
+  "debitTotalLabels": ["total withdrawals and other subtractions"],
+  "signConvention": "section-headers",
+  "multilineDescriptions": true
+}

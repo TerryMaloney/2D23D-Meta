@@ -1,0 +1,15 @@
+{
+  "id": "wise-v1",
+  "bankName": "Wise",
+  "accountType": "multi-currency",
+  "identify": {
+    "anyOf": ["Wise Payments", "TransferWise", "wise.com"],
+    "layoutHints": ["EUR statement", "IBAN"]
+  },
+  "currency": "EUR",
+  "locale": "eu",
+  "openingLabels": ["opening balance"],
+  "closingLabels": ["closing balance"],
+  "signConvention": "single-signed",
+  "multilineDescriptions": true
+}

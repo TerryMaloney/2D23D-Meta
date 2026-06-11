@@ -1,0 +1,15 @@
+{
+  "id": "amex-card-v1",
+  "bankName": "American Express",
+  "accountType": "credit-card",
+  "identify": {
+    "anyOf": ["American Express", "americanexpress.com"],
+    "layoutHints": ["Closing Date", "Membership Rewards"]
+  },
+  "openingLabels": ["previous balance"],
+  "closingLabels": ["new balance"],
+  "creditTotalLabels": ["new charges"],
+  "debitTotalLabels": ["payments and credits"],
+  "signConvention": "cc-purchases-positive",
+  "multilineDescriptions": true
+}

@@ -1,0 +1,156 @@
+[
+  {
+    "templateId": "chase-checking-v1",
+    "currency": "USD",
+    "periodStart": "2026-01-01",
+    "periodEnd": "2026-01-31",
+    "openingBalanceCents": 510000,
+    "closingBalanceCents": 1200913,
+    "reconciliationStatus": "verified",
+    "transactions": [
+      {
+        "date": "2026-01-01",
+        "description": "ZELLE FROM J DOE",
+        "amountCents": 253333,
+        "balanceCents": 763333
+      },
+      {
+        "date": "2026-01-01",
+        "description": "MOBILE CHECK DEPOSIT",
+        "amountCents": 63066,
+        "balanceCents": 826399
+      },
+      {
+        "date": "2026-01-04",
+        "description": "REFUND NORTHWIND GROCERY",
+        "amountCents": 288593,
+        "balanceCents": 1114992
+      },
+      {
+        "date": "2026-01-05",
+        "description": "LUMEN UTILITIES",
+        "amountCents": -7247,
+        "balanceCents": 1107745
+      },
+      {
+        "date": "2026-01-09",
+        "description": "HARBORVIEW PARKING",
+        "amountCents": -60010,
+        "balanceCents": 1047735
+      },
+      {
+        "date": "2026-01-09",
+        "description": "RIVERSIDE HARDWARE",
+        "amountCents": -68091,
+        "balanceCents": 979644
+      },
+      {
+        "date": "2026-01-11",
+        "description": "ORBIT WIRELESS",
+        "amountCents": -61908,
+        "balanceCents": 917736
+      },
+      {
+        "date": "2026-01-15",
+        "description": "MOBILE CHECK DEPOSIT",
+        "amountCents": 268293,
+        "balanceCents": 1186029
+      },
+      {
+        "date": "2026-01-19",
+        "description": "DRIFTWOOD HOTEL",
+        "amountCents": -52478,
+        "balanceCents": 1133551
+      },
+      {
+        "date": "2026-01-20",
+        "description": "MOBILE CHECK DEPOSIT",
+        "amountCents": 57245,
+        "balanceCents": 1190796
+      },
+      {
+        "date": "2026-01-24",
+        "description": "TRANSFER FROM SAVINGS",
+        "amountCents": 201414,
+        "balanceCents": 1392210
+      },
+      {
+        "date": "2026-01-26",
+        "description": "BLUE KETTLE COFFEE",
+        "amountCents": -86855,
+        "balanceCents": 1305355
+      },
+      {
+        "date": "2026-01-27",
+        "description": "RIVERSIDE HARDWARE",
+        "amountCents": -56989,
+        "balanceCents": 1248366
+      },
+      {
+        "date": "2026-01-30",
+        "description": "PAPERTRAIL OFFICE SUPPLY",
+        "amountCents": -47453,
+        "balanceCents": 1200913
+      }
+    ]
+  },
+  {
+    "templateId": "chase-checking-v1",
+    "currency": "USD",
+    "periodStart": "2026-01-01",
+    "periodEnd": "2026-01-31",
+    "openingBalanceCents": 1200000,
+    "closingBalanceCents": 2057812,
+    "reconciliationStatus": "verified",
+    "transactions": [
+      {
+        "date": "2026-01-01",
+        "description": "STONEGATE GYM",
+        "amountCents": -43499,
+        "balanceCents": 1156501
+      },
+      {
+        "date": "2026-01-05",
+        "description": "TRANSFER FROM SAVINGS",
+        "amountCents": 294403,
+        "balanceCents": 1450904
+      },
+      {
+        "date": "2026-01-07",
+        "description": "ORBIT WIRELESS",
+        "amountCents": -19613,
+        "balanceCents": 1431291
+      },
+      {
+        "date": "2026-01-14",
+        "description": "REFUND NORTHWIND GROCERY",
+        "amountCents": 121064,
+        "balanceCents": 1552355
+      },
+      {
+        "date": "2026-01-21",
+        "description": "ZELLE FROM J DOE",
+        "amountCents": 369552,
+        "balanceCents": 1921907
+      },
+      {
+        "date": "2026-01-26",
+        "description": "INTEREST PAYMENT",
+        "amountCents": 249113,
+        "balanceCents": 2171020
+      },
+      {
+        "date": "2026-01-28",
+        "description": "ORBIT WIRELESS",
+        "amountCents": -82356,
+        "balanceCents": 2088664
+      },
+      {
+        "date": "2026-01-30",
+        "description": "QUARRY BOOKS",
+        "amountCents": -30852,
+        "balanceCents": 2057812
+      }
+    ]
+  }
+]

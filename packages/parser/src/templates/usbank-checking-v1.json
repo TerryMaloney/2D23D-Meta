@@ -1,0 +1,15 @@
+{
+  "id": "usbank-checking-v1",
+  "bankName": "U.S. Bank",
+  "accountType": "checking",
+  "identify": {
+    "anyOf": ["U.S. Bank", "usbank.com"],
+    "layoutHints": ["Member FDIC", "Balance Summary"]
+  },
+  "openingLabels": ["beginning balance"],
+  "closingLabels": ["ending balance"],
+  "creditTotalLabels": ["total additions", "total deposits"],
+  "debitTotalLabels": ["total subtractions", "total withdrawals"],
+  "signConvention": "auto",
+  "multilineDescriptions": true
+}

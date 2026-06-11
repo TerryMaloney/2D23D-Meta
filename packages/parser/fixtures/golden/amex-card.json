@@ -1,0 +1,126 @@
+{
+  "templateId": "amex-card-v1",
+  "currency": "USD",
+  "periodStart": "2025-12-15",
+  "periodEnd": "2026-01-14",
+  "openingBalanceCents": 210000,
+  "closingBalanceCents": 450450,
+  "reconciliationStatus": "verified",
+  "transactions": [
+    {
+      "date": "2025-12-16",
+      "description": "LUMEN UTILITIES",
+      "amountCents": 4342
+    },
+    {
+      "date": "2025-12-16",
+      "description": "NORTHWIND GROCERY",
+      "amountCents": 6774
+    },
+    {
+      "date": "2025-12-16",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": 24524
+    },
+    {
+      "date": "2025-12-16",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": 14438
+    },
+    {
+      "date": "2025-12-17",
+      "description": "LUMEN UTILITIES",
+      "amountCents": 9322
+    },
+    {
+      "date": "2025-12-18",
+      "description": "AUTOMATIC PAYMENT - THANK YOU",
+      "amountCents": -101758
+    },
+    {
+      "date": "2025-12-18",
+      "description": "GREENFIELD PHARMACY",
+      "amountCents": 8491
+    },
+    {
+      "date": "2025-12-20",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": 13476
+    },
+    {
+      "date": "2025-12-23",
+      "description": "ORBIT WIRELESS",
+      "amountCents": 17778
+    },
+    {
+      "date": "2025-12-27",
+      "description": "CEDARLINE INSURANCE",
+      "amountCents": 3757
+    },
+    {
+      "date": "2025-12-27",
+      "description": "NORTHWIND GROCERY",
+      "amountCents": 16974
+    },
+    {
+      "date": "2025-12-27",
+      "description": "BLUE KETTLE COFFEE",
+      "amountCents": 27942
+    },
+    {
+      "date": "2025-12-29",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": 27229
+    },
+    {
+      "date": "2025-12-29",
+      "description": "CEDARLINE INSURANCE",
+      "amountCents": 24536
+    },
+    {
+      "date": "2025-12-30",
+      "description": "CEDARLINE INSURANCE",
+      "amountCents": 11487
+    },
+    {
+      "date": "2026-01-01",
+      "description": "QUARRY BOOKS",
+      "amountCents": 19617
+    },
+    {
+      "date": "2026-01-04",
+      "description": "ORBIT WIRELESS",
+      "amountCents": 12592
+    },
+    {
+      "date": "2026-01-04",
+      "description": "CEDARLINE INSURANCE",
+      "amountCents": 17138
+    },
+    {
+      "date": "2026-01-07",
+      "description": "ORBIT WIRELESS",
+      "amountCents": 22923
+    },
+    {
+      "date": "2026-01-08",
+      "description": "ORBIT WIRELESS",
+      "amountCents": 12499
+    },
+    {
+      "date": "2026-01-10",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": 14397
+    },
+    {
+      "date": "2026-01-11",
+      "description": "QUARRY BOOKS",
+      "amountCents": 16497
+    },
+    {
+      "date": "2026-01-13",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": 15475
+    }
+  ]
+}

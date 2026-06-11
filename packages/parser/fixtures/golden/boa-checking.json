@@ -1,0 +1,131 @@
+{
+  "templateId": "boa-checking-v1",
+  "currency": "USD",
+  "periodStart": "2026-01-01",
+  "periodEnd": "2026-01-31",
+  "openingBalanceCents": 812300,
+  "closingBalanceCents": 1258168,
+  "reconciliationStatus": "verified",
+  "transactions": [
+    {
+      "date": "2026-01-07",
+      "description": "REFUND NORTHWIND GROCERY",
+      "amountCents": 216826
+    },
+    {
+      "date": "2026-01-22",
+      "description": "REFUND NORTHWIND GROCERY",
+      "amountCents": 343716
+    },
+    {
+      "date": "2026-01-24",
+      "description": "PAYROLL DIRECT DEP ACME LLC",
+      "amountCents": 249237
+    },
+    {
+      "date": "2026-01-26",
+      "description": "TRANSFER FROM SAVINGS",
+      "amountCents": 382927
+    },
+    {
+      "date": "2026-01-29",
+      "description": "ZELLE FROM J DOE",
+      "amountCents": 177183
+    },
+    {
+      "date": "2026-01-01",
+      "description": "GREENFIELD PHARMACY",
+      "amountCents": -75002
+    },
+    {
+      "date": "2026-01-03",
+      "description": "ORBIT WIRELESS",
+      "amountCents": -63038
+    },
+    {
+      "date": "2026-01-04",
+      "description": "BLUE KETTLE COFFEE",
+      "amountCents": -51628
+    },
+    {
+      "date": "2026-01-07",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": -82058
+    },
+    {
+      "date": "2026-01-08",
+      "description": "ORBIT WIRELESS",
+      "amountCents": -8182
+    },
+    {
+      "date": "2026-01-09",
+      "description": "MAPLE AND MAIN DINER",
+      "amountCents": -25165
+    },
+    {
+      "date": "2026-01-10",
+      "description": "SUNSET FUEL STATION",
+      "amountCents": -67632
+    },
+    {
+      "date": "2026-01-14",
+      "description": "GREENFIELD PHARMACY",
+      "amountCents": -50700
+    },
+    {
+      "date": "2026-01-17",
+      "description": "NORTHWIND GROCERY",
+      "amountCents": -4867
+    },
+    {
+      "date": "2026-01-17",
+      "description": "ORBIT WIRELESS",
+      "amountCents": -66999
+    },
+    {
+      "date": "2026-01-18",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": -19399
+    },
+    {
+      "date": "2026-01-18",
+      "description": "ORBIT WIRELESS",
+      "amountCents": -75787
+    },
+    {
+      "date": "2026-01-19",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": -37561
+    },
+    {
+      "date": "2026-01-19",
+      "description": "TIDEWATER MARKET",
+      "amountCents": -85808
+    },
+    {
+      "date": "2026-01-23",
+      "description": "QUARRY BOOKS",
+      "amountCents": -56445
+    },
+    {
+      "date": "2026-01-25",
+      "description": "RIVERSIDE HARDWARE",
+      "amountCents": -13815
+    },
+    {
+      "date": "2026-01-25",
+      "description": "MAPLE AND MAIN DINER",
+      "amountCents": -13047
+    },
+    {
+      "date": "2026-01-25",
+      "description": "CEDARLINE INSURANCE",
+      "amountCents": -86915
+    },
+    {
+      "date": "2026-01-26",
+      "description": "ORBIT WIRELESS",
+      "amountCents": -39973
+    }
+  ]
+}

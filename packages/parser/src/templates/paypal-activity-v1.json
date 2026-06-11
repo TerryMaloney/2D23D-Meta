@@ -1,0 +1,13 @@
+{
+  "id": "paypal-activity-v1",
+  "bankName": "PayPal",
+  "accountType": "payments",
+  "identify": {
+    "anyOf": ["PayPal"],
+    "layoutHints": ["Activity report", "Transaction ID"]
+  },
+  "openingLabels": ["beginning balance"],
+  "closingLabels": ["ending balance"],
+  "signConvention": "single-signed",
+  "multilineDescriptions": true
+}

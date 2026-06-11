@@ -1,0 +1,173 @@
+{
+  "templateId": "wellsfargo-checking-v1",
+  "currency": "USD",
+  "periodStart": "2026-01-01",
+  "periodEnd": "2026-01-31",
+  "openingBalanceCents": 1530075,
+  "closingBalanceCents": 3884832,
+  "reconciliationStatus": "verified",
+  "transactions": [
+    {
+      "date": "2026-01-01",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": -39504,
+      "balanceCents": 1490571
+    },
+    {
+      "date": "2026-01-01",
+      "description": "MOBILE CHECK DEPOSIT",
+      "amountCents": 186743,
+      "balanceCents": 1677314
+    },
+    {
+      "date": "2026-01-03",
+      "description": "ZELLE FROM J DOE",
+      "amountCents": 334690,
+      "balanceCents": 2012004
+    },
+    {
+      "date": "2026-01-03",
+      "description": "CHECK",
+      "amountCents": -56080,
+      "balanceCents": 1955924,
+      "checkNumber": "1004"
+    },
+    {
+      "date": "2026-01-05",
+      "description": "REFUND NORTHWIND GROCERY",
+      "amountCents": 287681,
+      "balanceCents": 2243605
+    },
+    {
+      "date": "2026-01-09",
+      "description": "CHECK",
+      "amountCents": -67721,
+      "balanceCents": 2175884,
+      "checkNumber": "1006"
+    },
+    {
+      "date": "2026-01-10",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": -23375,
+      "balanceCents": 2152509
+    },
+    {
+      "date": "2026-01-11",
+      "description": "CHECK",
+      "amountCents": -76575,
+      "balanceCents": 2075934,
+      "checkNumber": "1008"
+    },
+    {
+      "date": "2026-01-12",
+      "description": "MOBILE CHECK DEPOSIT",
+      "amountCents": 98395,
+      "balanceCents": 2174329
+    },
+    {
+      "date": "2026-01-13",
+      "description": "CHECK",
+      "amountCents": -21843,
+      "balanceCents": 2152486,
+      "checkNumber": "1010"
+    },
+    {
+      "date": "2026-01-15",
+      "description": "QUARRY BOOKS",
+      "amountCents": -18436,
+      "balanceCents": 2134050
+    },
+    {
+      "date": "2026-01-15",
+      "description": "TRANSFER FROM SAVINGS",
+      "amountCents": 261662,
+      "balanceCents": 2395712
+    },
+    {
+      "date": "2026-01-16",
+      "description": "INTEREST PAYMENT",
+      "amountCents": 352981,
+      "balanceCents": 2748693
+    },
+    {
+      "date": "2026-01-16",
+      "description": "TRANSFER FROM SAVINGS",
+      "amountCents": 77524,
+      "balanceCents": 2826217
+    },
+    {
+      "date": "2026-01-16",
+      "description": "REFUND NORTHWIND GROCERY",
+      "amountCents": 92334,
+      "balanceCents": 2918551
+    },
+    {
+      "date": "2026-01-19",
+      "description": "REFUND NORTHWIND GROCERY",
+      "amountCents": 270188,
+      "balanceCents": 3188739
+    },
+    {
+      "date": "2026-01-19",
+      "description": "MOBILE CHECK DEPOSIT",
+      "amountCents": 317031,
+      "balanceCents": 3505770
+    },
+    {
+      "date": "2026-01-20",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": -3125,
+      "balanceCents": 3502645
+    },
+    {
+      "date": "2026-01-23",
+      "description": "CHECK",
+      "amountCents": -63383,
+      "balanceCents": 3439262,
+      "checkNumber": "1019"
+    },
+    {
+      "date": "2026-01-25",
+      "description": "TRANSFER FROM SAVINGS",
+      "amountCents": 241488,
+      "balanceCents": 3680750
+    },
+    {
+      "date": "2026-01-25",
+      "description": "MOBILE CHECK DEPOSIT",
+      "amountCents": 192649,
+      "balanceCents": 3873399
+    },
+    {
+      "date": "2026-01-26",
+      "description": "ZELLE FROM J DOE",
+      "amountCents": 128584,
+      "balanceCents": 4001983
+    },
+    {
+      "date": "2026-01-26",
+      "description": "ORBIT WIRELESS",
+      "amountCents": -26880,
+      "balanceCents": 3975103
+    },
+    {
+      "date": "2026-01-29",
+      "description": "STONEGATE GYM",
+      "amountCents": -9645,
+      "balanceCents": 3965458
+    },
+    {
+      "date": "2026-01-30",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": -43075,
+      "balanceCents": 3922383
+    },
+    {
+      "date": "2026-01-30",
+      "description": "CHECK",
+      "amountCents": -37551,
+      "balanceCents": 3884832,
+      "checkNumber": "1026"
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "templateId": "paypal-activity-v1",
+  "currency": "USD",
+  "periodStart": "2026-01-01",
+  "periodEnd": "2026-01-31",
+  "openingBalanceCents": 50000,
+  "closingBalanceCents": -7750,
+  "reconciliationStatus": "verified",
+  "transactions": [
+    {
+      "date": "2026-01-03",
+      "description": "PAYMENT RECEIVED TIDEWATER MARKET",
+      "amountCents": 10183,
+      "balanceCents": 60183
+    },
+    {
+      "date": "2026-01-03",
+      "description": "FEE FOR RECEIVING PAYMENT",
+      "amountCents": -325,
+      "balanceCents": 59858
+    },
+    {
+      "date": "2026-01-04",
+      "description": "NORTHWIND GROCERY",
+      "amountCents": -17290,
+      "balanceCents": 42568
+    },
+    {
+      "date": "2026-01-05",
+      "description": "SUNSET FUEL STATION",
+      "amountCents": -8626,
+      "balanceCents": 33942
+    },
+    {
+      "date": "2026-01-07",
+      "description": "NORTHWIND GROCERY",
+      "amountCents": -11578,
+      "balanceCents": 22364
+    },
+    {
+      "date": "2026-01-12",
+      "description": "PAYMENT RECEIVED TIDEWATER MARKET",
+      "amountCents": 60013,
+      "balanceCents": 82377
+    },
+    {
+      "date": "2026-01-12",
+      "description": "FEE FOR RECEIVING PAYMENT",
+      "amountCents": -1770,
+      "balanceCents": 80607
+    },
+    {
+      "date": "2026-01-12",
+      "description": "STONEGATE GYM",
+      "amountCents": -2648,
+      "balanceCents": 77959
+    },
+    {
+      "date": "2026-01-12",
+      "description": "MAPLE AND MAIN DINER",
+      "amountCents": -3053,
+      "balanceCents": 74906,
+      "currency": "EUR"
+    },
+    {
+      "date": "2026-01-15",
+      "description": "MAPLE AND MAIN DINER",
+      "amountCents": -34545,
+      "balanceCents": 40361
+    },
+    {
+      "date": "2026-01-17",
+      "description": "PAYMENT RECEIVED TIDEWATER MARKET",
+      "amountCents": 68429,
+      "balanceCents": 108790
+    },
+    {
+      "date": "2026-01-17",
+      "description": "FEE FOR RECEIVING PAYMENT",
+      "amountCents": -2014,
+      "balanceCents": 106776
+    },
+    {
+      "date": "2026-01-18",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": -36900,
+      "balanceCents": 69876
+    },
+    {
+      "date": "2026-01-20",
+      "description": "RIVERSIDE HARDWARE",
+      "amountCents": -3662,
+      "balanceCents": 66214
+    },
+    {
+      "date": "2026-01-21",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": -6681,
+      "balanceCents": 59533
+    },
+    {
+      "date": "2026-01-23",
+      "description": "PAYMENT RECEIVED TIDEWATER MARKET",
+      "amountCents": 5080,
+      "balanceCents": 64613,
+      "currency": "EUR"
+    },
+    {
+      "date": "2026-01-23",
+      "description": "FEE FOR RECEIVING PAYMENT",
+      "amountCents": -177,
+      "balanceCents": 64436
+    },
+    {
+      "date": "2026-01-24",
+      "description": "BLUE KETTLE COFFEE",
+      "amountCents": -26057,
+      "balanceCents": 38379
+    },
+    {
+      "date": "2026-01-27",
+      "description": "NORTHWIND GROCERY",
+      "amountCents": -7768,
+      "balanceCents": 30611
+    },
+    {
+      "date": "2026-01-29",
+      "description": "MAPLE AND MAIN DINER",
+      "amountCents": -38361,
+      "balanceCents": -7750
+    }
+  ]
+}

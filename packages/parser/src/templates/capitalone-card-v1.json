@@ -1,0 +1,16 @@
+{
+  "id": "capitalone-card-v1",
+  "bankName": "Capital One",
+  "accountType": "credit-card",
+  "identify": {
+    "anyOf": ["Capital One"],
+    "layoutHints": ["Trans Date", "Post Date", "capitalone.com"]
+  },
+  "openingLabels": ["previous balance"],
+  "closingLabels": ["new balance"],
+  "creditTotalLabels": ["purchases"],
+  "debitTotalLabels": ["payments and credits"],
+  "signConvention": "cc-purchases-positive",
+  "twoDateColumns": true,
+  "multilineDescriptions": true
+}

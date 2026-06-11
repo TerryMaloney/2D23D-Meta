@@ -1,0 +1,15 @@
+{
+  "id": "chase-checking-v1",
+  "bankName": "Chase",
+  "accountType": "checking",
+  "identify": {
+    "anyOf": ["JPMorgan Chase Bank", "chase.com"],
+    "layoutHints": ["TRANSACTION DETAIL", "CHECKING SUMMARY"]
+  },
+  "openingLabels": ["beginning balance"],
+  "closingLabels": ["ending balance"],
+  "creditTotalLabels": ["deposits and additions"],
+  "debitTotalLabels": ["electronic withdrawals", "total withdrawals"],
+  "signConvention": "auto",
+  "multilineDescriptions": true
+}

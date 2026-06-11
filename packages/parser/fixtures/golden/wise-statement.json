@@ -1,0 +1,95 @@
+{
+  "templateId": "wise-v1",
+  "currency": "EUR",
+  "periodStart": "2025-12-01",
+  "periodEnd": "2025-12-31",
+  "openingBalanceCents": 304211,
+  "closingBalanceCents": 986760,
+  "reconciliationStatus": "verified",
+  "transactions": [
+    {
+      "date": "2025-12-04",
+      "description": "RECEIVED FROM ACME GMBH",
+      "amountCents": 161196,
+      "balanceCents": 465407
+    },
+    {
+      "date": "2025-12-04",
+      "description": "RECEIVED FROM ACME GMBH",
+      "amountCents": 283909,
+      "balanceCents": 749316
+    },
+    {
+      "date": "2025-12-06",
+      "description": "CARD PAYMENT SUNSET FUEL STATION",
+      "amountCents": -16428,
+      "balanceCents": 732888
+    },
+    {
+      "date": "2025-12-07",
+      "description": "RECEIVED FROM ACME GMBH",
+      "amountCents": 153823,
+      "balanceCents": 886711
+    },
+    {
+      "date": "2025-12-09",
+      "description": "CARD PAYMENT BLUE KETTLE COFFEE",
+      "amountCents": -57944,
+      "balanceCents": 828767
+    },
+    {
+      "date": "2025-12-09",
+      "description": "CARD PAYMENT PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": -65774,
+      "balanceCents": 762993
+    },
+    {
+      "date": "2025-12-11",
+      "description": "CARD PAYMENT STONEGATE GYM",
+      "amountCents": -14014,
+      "balanceCents": 748979
+    },
+    {
+      "date": "2025-12-11",
+      "description": "RECEIVED FROM ACME GMBH",
+      "amountCents": 292043,
+      "balanceCents": 1041022
+    },
+    {
+      "date": "2025-12-15",
+      "description": "RECEIVED FROM ACME GMBH",
+      "amountCents": 104984,
+      "balanceCents": 1146006
+    },
+    {
+      "date": "2025-12-15",
+      "description": "CARD PAYMENT QUARRY BOOKS",
+      "amountCents": -76656,
+      "balanceCents": 1069350
+    },
+    {
+      "date": "2025-12-19",
+      "description": "CARD PAYMENT HARBORVIEW PARKING",
+      "amountCents": -63456,
+      "balanceCents": 1005894
+    },
+    {
+      "date": "2025-12-21",
+      "description": "RECEIVED FROM ACME GMBH",
+      "amountCents": 38330,
+      "balanceCents": 1044224
+    },
+    {
+      "date": "2025-12-21",
+      "description": "CARD PAYMENT TIDEWATER MARKET",
+      "amountCents": -44156,
+      "balanceCents": 1000068
+    },
+    {
+      "date": "2025-12-29",
+      "description": "CARD PAYMENT QUARRY BOOKS",
+      "amountCents": -13308,
+      "balanceCents": 986760
+    }
+  ]
+}

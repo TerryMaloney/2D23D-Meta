@@ -1,0 +1,15 @@
+{
+  "id": "wellsfargo-checking-v1",
+  "bankName": "Wells Fargo",
+  "accountType": "checking",
+  "identify": {
+    "anyOf": ["Wells Fargo"],
+    "layoutHints": ["Transaction history", "wellsfargo.com"]
+  },
+  "openingLabels": ["beginning balance"],
+  "closingLabels": ["ending balance"],
+  "creditTotalLabels": ["total deposits"],
+  "debitTotalLabels": ["total withdrawals"],
+  "signConvention": "auto",
+  "multilineDescriptions": true
+}

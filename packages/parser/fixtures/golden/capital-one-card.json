@@ -1,0 +1,125 @@
+{
+  "templateId": "capitalone-card-v1",
+  "currency": "USD",
+  "periodStart": "2025-12-05",
+  "periodEnd": "2026-01-04",
+  "openingBalanceCents": 230410,
+  "closingBalanceCents": 421590,
+  "reconciliationStatus": "verified",
+  "transactions": [
+    {
+      "date": "2025-12-05",
+      "postDate": "2025-12-07",
+      "description": "RIVERSIDE HARDWARE",
+      "amountCents": 5358
+    },
+    {
+      "date": "2025-12-05",
+      "postDate": "2025-12-07",
+      "description": "SUNSET FUEL STATION",
+      "amountCents": 21653
+    },
+    {
+      "date": "2025-12-05",
+      "postDate": "2025-12-07",
+      "description": "RIVERSIDE HARDWARE",
+      "amountCents": 5751
+    },
+    {
+      "date": "2025-12-05",
+      "postDate": "2025-12-07",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": 1794
+    },
+    {
+      "date": "2025-12-06",
+      "postDate": "2025-12-08",
+      "description": "MAPLE AND MAIN DINER",
+      "amountCents": 8499
+    },
+    {
+      "date": "2025-12-09",
+      "postDate": "2025-12-11",
+      "description": "RIVERSIDE HARDWARE",
+      "amountCents": 18024
+    },
+    {
+      "date": "2025-12-11",
+      "postDate": "2025-12-13",
+      "description": "LUMEN UTILITIES",
+      "amountCents": 7791
+    },
+    {
+      "date": "2025-12-13",
+      "postDate": "2025-12-15",
+      "description": "CEDARLINE INSURANCE",
+      "amountCents": 3635
+    },
+    {
+      "date": "2025-12-15",
+      "postDate": "2025-12-17",
+      "description": "TIDEWATER MARKET",
+      "amountCents": 17543
+    },
+    {
+      "date": "2025-12-16",
+      "postDate": "2025-12-18",
+      "description": "TIDEWATER MARKET",
+      "amountCents": 20248
+    },
+    {
+      "date": "2025-12-21",
+      "postDate": "2025-12-23",
+      "description": "RIVERSIDE HARDWARE",
+      "amountCents": 22974
+    },
+    {
+      "date": "2025-12-22",
+      "postDate": "2025-12-24",
+      "description": "GREENFIELD PHARMACY",
+      "amountCents": 17076
+    },
+    {
+      "date": "2025-12-22",
+      "postDate": "2025-12-24",
+      "description": "ORBIT WIRELESS",
+      "amountCents": 16998
+    },
+    {
+      "date": "2025-12-24",
+      "postDate": "2025-12-26",
+      "description": "QUARRY BOOKS",
+      "amountCents": 15312
+    },
+    {
+      "date": "2025-12-27",
+      "postDate": "2025-12-29",
+      "description": "ORBIT WIRELESS",
+      "amountCents": 14303
+    },
+    {
+      "date": "2025-12-30",
+      "postDate": "2026-01-01",
+      "description": "LUMEN UTILITIES",
+      "amountCents": 7836
+    },
+    {
+      "date": "2025-12-30",
+      "postDate": "2026-01-01",
+      "description": "QUARRY BOOKS",
+      "amountCents": 11618
+    },
+    {
+      "date": "2026-01-02",
+      "postDate": "2026-01-04",
+      "description": "AUTOMATIC PAYMENT - THANK YOU",
+      "amountCents": -37159
+    },
+    {
+      "date": "2026-01-03",
+      "postDate": "2026-01-05",
+      "description": "LUMEN UTILITIES",
+      "amountCents": 11926
+    }
+  ]
+}

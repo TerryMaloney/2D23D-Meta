@@ -1,0 +1,239 @@
+{
+  "templateId": "chase-checking-v1",
+  "currency": "USD",
+  "periodStart": "2026-01-01",
+  "periodEnd": "2026-01-31",
+  "openingBalanceCents": 421055,
+  "closingBalanceCents": 1888536,
+  "reconciliationStatus": "verified",
+  "transactions": [
+    {
+      "date": "2026-01-02",
+      "description": "RIVERSIDE HARDWARE",
+      "amountCents": -76172,
+      "balanceCents": 344883
+    },
+    {
+      "date": "2026-01-03",
+      "description": "BLUE KETTLE COFFEE",
+      "amountCents": -2774,
+      "balanceCents": 342109
+    },
+    {
+      "date": "2026-01-04",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": -24703,
+      "balanceCents": 317406
+    },
+    {
+      "date": "2026-01-05",
+      "description": "PAYROLL DIRECT DEP ACME LLC",
+      "amountCents": 264757,
+      "balanceCents": 582163
+    },
+    {
+      "date": "2026-01-05",
+      "description": "MAPLE AND MAIN DINER",
+      "amountCents": -38823,
+      "balanceCents": 543340
+    },
+    {
+      "date": "2026-01-06",
+      "description": "ZELLE FROM J DOE",
+      "amountCents": 298694,
+      "balanceCents": 842034
+    },
+    {
+      "date": "2026-01-08",
+      "description": "QUARRY BOOKS REF: 118576481X",
+      "amountCents": -31630,
+      "balanceCents": 810404
+    },
+    {
+      "date": "2026-01-09",
+      "description": "ORBIT WIRELESS",
+      "amountCents": -11730,
+      "balanceCents": 798674
+    },
+    {
+      "date": "2026-01-09",
+      "description": "MAPLE AND MAIN DINER",
+      "amountCents": -56875,
+      "balanceCents": 741799
+    },
+    {
+      "date": "2026-01-10",
+      "description": "HARBORVIEW PARKING REF: 880709335X",
+      "amountCents": -28053,
+      "balanceCents": 713746
+    },
+    {
+      "date": "2026-01-11",
+      "description": "BLUE KETTLE COFFEE",
+      "amountCents": -11552,
+      "balanceCents": 702194
+    },
+    {
+      "date": "2026-01-12",
+      "description": "STONEGATE GYM",
+      "amountCents": -9750,
+      "balanceCents": 692444
+    },
+    {
+      "date": "2026-01-12",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": -54038,
+      "balanceCents": 638406
+    },
+    {
+      "date": "2026-01-13",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": -58830,
+      "balanceCents": 579576
+    },
+    {
+      "date": "2026-01-13",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": -12807,
+      "balanceCents": 566769
+    },
+    {
+      "date": "2026-01-14",
+      "description": "SUNSET FUEL STATION",
+      "amountCents": -34198,
+      "balanceCents": 532571
+    },
+    {
+      "date": "2026-01-15",
+      "description": "INTEREST PAYMENT",
+      "amountCents": 128930,
+      "balanceCents": 661501
+    },
+    {
+      "date": "2026-01-16",
+      "description": "CEDARLINE INSURANCE REF: 553931233X",
+      "amountCents": -64771,
+      "balanceCents": 596730
+    },
+    {
+      "date": "2026-01-16",
+      "description": "TIDEWATER MARKET",
+      "amountCents": -73587,
+      "balanceCents": 523143
+    },
+    {
+      "date": "2026-01-16",
+      "description": "REFUND NORTHWIND GROCERY",
+      "amountCents": 184546,
+      "balanceCents": 707689
+    },
+    {
+      "date": "2026-01-17",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": -572,
+      "balanceCents": 707117
+    },
+    {
+      "date": "2026-01-18",
+      "description": "PAYROLL DIRECT DEP ACME LLC REF: 997551399X",
+      "amountCents": 326790,
+      "balanceCents": 1033907
+    },
+    {
+      "date": "2026-01-18",
+      "description": "DRIFTWOOD HOTEL",
+      "amountCents": -75213,
+      "balanceCents": 958694
+    },
+    {
+      "date": "2026-01-18",
+      "description": "INTEREST PAYMENT",
+      "amountCents": 84001,
+      "balanceCents": 1042695
+    },
+    {
+      "date": "2026-01-18",
+      "description": "NORTHWIND GROCERY",
+      "amountCents": -5025,
+      "balanceCents": 1037670
+    },
+    {
+      "date": "2026-01-19",
+      "description": "TRANSFER FROM SAVINGS",
+      "amountCents": 178556,
+      "balanceCents": 1216226
+    },
+    {
+      "date": "2026-01-19",
+      "description": "TIDEWATER MARKET",
+      "amountCents": -33843,
+      "balanceCents": 1182383
+    },
+    {
+      "date": "2026-01-19",
+      "description": "CEDARLINE INSURANCE",
+      "amountCents": -61719,
+      "balanceCents": 1120664
+    },
+    {
+      "date": "2026-01-21",
+      "description": "RIVERSIDE HARDWARE",
+      "amountCents": -12198,
+      "balanceCents": 1108466
+    },
+    {
+      "date": "2026-01-21",
+      "description": "MOBILE CHECK DEPOSIT",
+      "amountCents": 330405,
+      "balanceCents": 1438871
+    },
+    {
+      "date": "2026-01-23",
+      "description": "BLUE KETTLE COFFEE REF: 744088423X",
+      "amountCents": -73209,
+      "balanceCents": 1365662
+    },
+    {
+      "date": "2026-01-23",
+      "description": "ZELLE FROM J DOE REF: 883476719X",
+      "amountCents": 62900,
+      "balanceCents": 1428562
+    },
+    {
+      "date": "2026-01-24",
+      "description": "SUNSET FUEL STATION",
+      "amountCents": -52216,
+      "balanceCents": 1376346
+    },
+    {
+      "date": "2026-01-25",
+      "description": "LUMEN UTILITIES REF: 625347611X",
+      "amountCents": -20787,
+      "balanceCents": 1355559
+    },
+    {
+      "date": "2026-01-26",
+      "description": "REFUND NORTHWIND GROCERY",
+      "amountCents": 234184,
+      "balanceCents": 1589743
+    },
+    {
+      "date": "2026-01-26",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": -5515,
+      "balanceCents": 1584228
+    },
+    {
+      "date": "2026-01-26",
+      "description": "PAYROLL DIRECT DEP ACME LLC",
+      "amountCents": 393453,
+      "balanceCents": 1977681
+    },
+    {
+      "date": "2026-01-30",
+      "description": "ORBIT WIRELESS",
+      "amountCents": -89145,
+      "balanceCents": 1888536
+    }
+  ]
+}

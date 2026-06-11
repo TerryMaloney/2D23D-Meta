@@ -1,0 +1,419 @@
+{
+  "templateId": "usbank-checking-v1",
+  "currency": "USD",
+  "periodStart": "2026-01-01",
+  "periodEnd": "2026-01-31",
+  "openingBalanceCents": 2204018,
+  "closingBalanceCents": 6729380,
+  "reconciliationStatus": "verified",
+  "transactions": [
+    {
+      "date": "2026-01-01",
+      "description": "PAYROLL DIRECT DEP ACME LLC",
+      "amountCents": 216513,
+      "balanceCents": 2420531
+    },
+    {
+      "date": "2026-01-01",
+      "description": "BLUE KETTLE COFFEE",
+      "amountCents": -6828,
+      "balanceCents": 2413703
+    },
+    {
+      "date": "2026-01-01",
+      "description": "ORBIT WIRELESS",
+      "amountCents": -28761,
+      "balanceCents": 2384942
+    },
+    {
+      "date": "2026-01-01",
+      "description": "ORBIT WIRELESS",
+      "amountCents": -1820,
+      "balanceCents": 2383122
+    },
+    {
+      "date": "2026-01-03",
+      "description": "QUARRY BOOKS",
+      "amountCents": -83529,
+      "balanceCents": 2299593
+    },
+    {
+      "date": "2026-01-04",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": -9366,
+      "balanceCents": 2290227
+    },
+    {
+      "date": "2026-01-04",
+      "description": "ZELLE FROM J DOE",
+      "amountCents": 239578,
+      "balanceCents": 2529805
+    },
+    {
+      "date": "2026-01-04",
+      "description": "MAPLE AND MAIN DINER",
+      "amountCents": -50293,
+      "balanceCents": 2479512
+    },
+    {
+      "date": "2026-01-05",
+      "description": "QUARRY BOOKS",
+      "amountCents": -71908,
+      "balanceCents": 2407604
+    },
+    {
+      "date": "2026-01-05",
+      "description": "REFUND NORTHWIND GROCERY",
+      "amountCents": 330780,
+      "balanceCents": 2738384
+    },
+    {
+      "date": "2026-01-06",
+      "description": "ZELLE FROM J DOE",
+      "amountCents": 79785,
+      "balanceCents": 2818169
+    },
+    {
+      "date": "2026-01-06",
+      "description": "REFUND NORTHWIND GROCERY",
+      "amountCents": 226529,
+      "balanceCents": 3044698
+    },
+    {
+      "date": "2026-01-06",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": -60982,
+      "balanceCents": 2983716
+    },
+    {
+      "date": "2026-01-07",
+      "description": "TRANSFER FROM SAVINGS",
+      "amountCents": 382295,
+      "balanceCents": 3366011
+    },
+    {
+      "date": "2026-01-07",
+      "description": "MAPLE AND MAIN DINER",
+      "amountCents": -50341,
+      "balanceCents": 3315670
+    },
+    {
+      "date": "2026-01-07",
+      "description": "LUMEN UTILITIES",
+      "amountCents": -12572,
+      "balanceCents": 3303098
+    },
+    {
+      "date": "2026-01-08",
+      "description": "ORBIT WIRELESS",
+      "amountCents": -70833,
+      "balanceCents": 3232265
+    },
+    {
+      "date": "2026-01-08",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": -10625,
+      "balanceCents": 3221640
+    },
+    {
+      "date": "2026-01-09",
+      "description": "REFUND NORTHWIND GROCERY",
+      "amountCents": 380580,
+      "balanceCents": 3602220
+    },
+    {
+      "date": "2026-01-09",
+      "description": "NORTHWIND GROCERY",
+      "amountCents": -30902,
+      "balanceCents": 3571318
+    },
+    {
+      "date": "2026-01-09",
+      "description": "REFUND NORTHWIND GROCERY",
+      "amountCents": 137500,
+      "balanceCents": 3708818
+    },
+    {
+      "date": "2026-01-09",
+      "description": "TRANSFER FROM SAVINGS",
+      "amountCents": 120791,
+      "balanceCents": 3829609
+    },
+    {
+      "date": "2026-01-09",
+      "description": "ZELLE FROM J DOE",
+      "amountCents": 108110,
+      "balanceCents": 3937719
+    },
+    {
+      "date": "2026-01-10",
+      "description": "LUMEN UTILITIES",
+      "amountCents": -44693,
+      "balanceCents": 3893026
+    },
+    {
+      "date": "2026-01-11",
+      "description": "TRANSFER FROM SAVINGS",
+      "amountCents": 295031,
+      "balanceCents": 4188057
+    },
+    {
+      "date": "2026-01-11",
+      "description": "TRANSFER FROM SAVINGS",
+      "amountCents": 391872,
+      "balanceCents": 4579929
+    },
+    {
+      "date": "2026-01-12",
+      "description": "TRANSFER FROM SAVINGS",
+      "amountCents": 135687,
+      "balanceCents": 4715616
+    },
+    {
+      "date": "2026-01-12",
+      "description": "REFUND NORTHWIND GROCERY",
+      "amountCents": 374500,
+      "balanceCents": 5090116
+    },
+    {
+      "date": "2026-01-12",
+      "description": "QUARRY BOOKS",
+      "amountCents": -3109,
+      "balanceCents": 5087007
+    },
+    {
+      "date": "2026-01-12",
+      "description": "STONEGATE GYM",
+      "amountCents": -80345,
+      "balanceCents": 5006662
+    },
+    {
+      "date": "2026-01-12",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": -68768,
+      "balanceCents": 4937894
+    },
+    {
+      "date": "2026-01-12",
+      "description": "ZELLE FROM J DOE",
+      "amountCents": 90493,
+      "balanceCents": 5028387
+    },
+    {
+      "date": "2026-01-12",
+      "description": "TIDEWATER MARKET",
+      "amountCents": -56662,
+      "balanceCents": 4971725
+    },
+    {
+      "date": "2026-01-13",
+      "description": "INTEREST PAYMENT",
+      "amountCents": 171885,
+      "balanceCents": 5143610
+    },
+    {
+      "date": "2026-01-14",
+      "description": "MAPLE AND MAIN DINER",
+      "amountCents": -88602,
+      "balanceCents": 5055008
+    },
+    {
+      "date": "2026-01-14",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": -52764,
+      "balanceCents": 5002244
+    },
+    {
+      "date": "2026-01-14",
+      "description": "TRANSFER FROM SAVINGS",
+      "amountCents": 345764,
+      "balanceCents": 5348008
+    },
+    {
+      "date": "2026-01-15",
+      "description": "PAPERTRAIL OFFICE SUPPLY",
+      "amountCents": -59951,
+      "balanceCents": 5288057
+    },
+    {
+      "date": "2026-01-15",
+      "description": "CEDARLINE INSURANCE",
+      "amountCents": -37983,
+      "balanceCents": 5250074
+    },
+    {
+      "date": "2026-01-16",
+      "description": "STONEGATE GYM",
+      "amountCents": -70173,
+      "balanceCents": 5179901
+    },
+    {
+      "date": "2026-01-16",
+      "description": "QUARRY BOOKS",
+      "amountCents": -11957,
+      "balanceCents": 5167944
+    },
+    {
+      "date": "2026-01-16",
+      "description": "GREENFIELD PHARMACY",
+      "amountCents": -38558,
+      "balanceCents": 5129386
+    },
+    {
+      "date": "2026-01-18",
+      "description": "REFUND NORTHWIND GROCERY",
+      "amountCents": 64964,
+      "balanceCents": 5194350
+    },
+    {
+      "date": "2026-01-19",
+      "description": "QUARRY BOOKS",
+      "amountCents": -76802,
+      "balanceCents": 5117548
+    },
+    {
+      "date": "2026-01-20",
+      "description": "PAYROLL DIRECT DEP ACME LLC",
+      "amountCents": 184949,
+      "balanceCents": 5302497
+    },
+    {
+      "date": "2026-01-20",
+      "description": "STONEGATE GYM",
+      "amountCents": -4314,
+      "balanceCents": 5298183
+    },
+    {
+      "date": "2026-01-21",
+      "description": "INTEREST PAYMENT",
+      "amountCents": 101252,
+      "balanceCents": 5399435
+    },
+    {
+      "date": "2026-01-22",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": -56836,
+      "balanceCents": 5342599
+    },
+    {
+      "date": "2026-01-22",
+      "description": "MOBILE CHECK DEPOSIT",
+      "amountCents": 341006,
+      "balanceCents": 5683605
+    },
+    {
+      "date": "2026-01-23",
+      "description": "PAYROLL DIRECT DEP ACME LLC",
+      "amountCents": 206016,
+      "balanceCents": 5889621
+    },
+    {
+      "date": "2026-01-23",
+      "description": "TRANSFER FROM SAVINGS",
+      "amountCents": 161065,
+      "balanceCents": 6050686
+    },
+    {
+      "date": "2026-01-24",
+      "description": "HARBORVIEW PARKING",
+      "amountCents": -49767,
+      "balanceCents": 6000919
+    },
+    {
+      "date": "2026-01-24",
+      "description": "ZELLE FROM J DOE",
+      "amountCents": 248772,
+      "balanceCents": 6249691
+    },
+    {
+      "date": "2026-01-25",
+      "description": "QUARRY BOOKS",
+      "amountCents": -57923,
+      "balanceCents": 6191768
+    },
+    {
+      "date": "2026-01-26",
+      "description": "DRIFTWOOD HOTEL",
+      "amountCents": -33593,
+      "balanceCents": 6158175
+    },
+    {
+      "date": "2026-01-26",
+      "description": "ORBIT WIRELESS",
+      "amountCents": -59684,
+      "balanceCents": 6098491
+    },
+    {
+      "date": "2026-01-26",
+      "description": "NORTHWIND GROCERY",
+      "amountCents": -65715,
+      "balanceCents": 6032776
+    },
+    {
+      "date": "2026-01-26",
+      "description": "SUNSET FUEL STATION",
+      "amountCents": -38474,
+      "balanceCents": 5994302
+    },
+    {
+      "date": "2026-01-27",
+      "description": "CEDARLINE INSURANCE",
+      "amountCents": -6929,
+      "balanceCents": 5987373
+    },
+    {
+      "date": "2026-01-27",
+      "description": "ORBIT WIRELESS",
+      "amountCents": -40108,
+      "balanceCents": 5947265
+    },
+    {
+      "date": "2026-01-28",
+      "description": "MOBILE CHECK DEPOSIT",
+      "amountCents": 115356,
+      "balanceCents": 6062621
+    },
+    {
+      "date": "2026-01-28",
+      "description": "ORBIT WIRELESS",
+      "amountCents": -58450,
+      "balanceCents": 6004171
+    },
+    {
+      "date": "2026-01-29",
+      "description": "ZELLE FROM J DOE",
+      "amountCents": 267262,
+      "balanceCents": 6271433
+    },
+    {
+      "date": "2026-01-29",
+      "description": "GREENFIELD PHARMACY",
+      "amountCents": -560,
+      "balanceCents": 6270873
+    },
+    {
+      "date": "2026-01-29",
+      "description": "MAPLE AND MAIN DINER",
+      "amountCents": -64943,
+      "balanceCents": 6205930
+    },
+    {
+      "date": "2026-01-30",
+      "description": "ZELLE FROM J DOE",
+      "amountCents": 357717,
+      "balanceCents": 6563647
+    },
+    {
+      "date": "2026-01-30",
+      "description": "BLUE KETTLE COFFEE",
+      "amountCents": -21357,
+      "balanceCents": 6542290
+    },
+    {
+      "date": "2026-01-30",
+      "description": "ZELLE FROM J DOE",
+      "amountCents": 187090,
+      "balanceCents": 6729380
+    }
+  ]
+}
