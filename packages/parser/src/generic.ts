@@ -267,7 +267,7 @@ export function parseSection(input: SectionParseInput): ParsedStatement {
   // ── Build transactions ──────────────────────────────────────────────
   const transactions: Transaction[] = [];
   const txRowSet = new Set(txRows);
-  let lastTxIndexByRow = new Map<ClassifiedRow, number>();
+  const lastTxIndexByRow = new Map<ClassifiedRow, number>();
   let prevBalance: number | undefined = opening?.cents;
   /** +1 inside a deposits section, -1 inside a withdrawals section. */
   let sectionSign = 0;
@@ -354,7 +354,7 @@ export function parseSection(input: SectionParseInput): ParsedStatement {
     if (amountCells.length === 0) continue; // balance-only row (e.g. daily balance table)
     // The amount is the leftmost non-balance amount cell by convention;
     // multiple non-balance cells outside a debit/credit layout get flagged.
-    let cell = amountCells[0];
+    const cell = amountCells[0];
     let cents = cell.amount.cents;
     let signResolved = cell.amount.explicitSign;
 

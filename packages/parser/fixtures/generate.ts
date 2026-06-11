@@ -1087,7 +1087,7 @@ async function multiAccount(): Promise<void> {
     return y + 34;
   };
 
-  let y = section("CHECKING", "Account Number: ...7204", 124, a.txs, openingA, a.closing);
+  const y = section("CHECKING", "Account Number: ...7204", 124, a.txs, openingA, a.closing);
   section("SAVINGS", "Account Number: ...8166", y, bGen.txs, openingB, bGen.closing);
 
   const goldenFor = (

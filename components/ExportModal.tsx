@@ -5,7 +5,7 @@
  * license entry. Buttons say what they do.
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ParsedStatement } from "@parser/types";
 import { toCsv, toOfx, toXeroCsv, toXlsxBytes, DateStyle, OfxFlavor } from "@exporters";
 import { beacon } from "@/lib/beacon";
@@ -51,20 +51,24 @@ export function ExportModal({
   const [invertSigns, setInvertSigns] = useState(statement.accountType === "credit-card");
   const [intuBid, setIntuBid] = useState("3000");
   const [showAdvanced, setShowAdvanced] = useState(false);
-  const [license, setLicense] = useState<LicenseState>({ plan: "free" });
+  // The modal only ever mounts in the browser (opened by a click), so the
+  // license cache can seed the initial state directly.
+  const [license, setLicense] = useState<LicenseState>(() =>
+    typeof window === "undefined" ? { plan: "free" } : loadLicense(),
+  );
   const [keyDraft, setKeyDraft] = useState("");
   const [keyError, setKeyError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
-  useEffect(() => setLicense(loadLicense()), []);
-
   const n = statement.transactions.length;
   const allowed = canExport(license, n, FREE_EXPORT_CAP);
-  const overCap = n > FREE_EXPORT_CAP;
 
+  const paywallReported = useRef(false);
   useEffect(() => {
-    if (!allowed) beacon({ event: "paywall_hit" });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!allowed && !paywallReported.current) {
+      paywallReported.current = true;
+      beacon({ event: "paywall_hit" });
+    }
   }, [allowed]);
 
   const doExport = async (capped: boolean) => {

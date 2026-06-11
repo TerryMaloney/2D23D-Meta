@@ -16,9 +16,18 @@ export function LicenseActivator() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    const cached = loadLicense();
-    setState(cached);
-    void revalidateIfStale(cached).then(setState);
+    let active = true;
+    // Async on purpose: this page is prerendered, so the cached license is
+    // applied after hydration, then revalidated quietly in the background.
+    void Promise.resolve().then(async () => {
+      const cached = loadLicense();
+      if (active) setState(cached);
+      const fresh = await revalidateIfStale(cached);
+      if (active) setState(fresh);
+    });
+    return () => {
+      active = false;
+    };
   }, []);
 
   const activate = async () => {

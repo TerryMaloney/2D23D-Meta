@@ -45,7 +45,7 @@ export default function Page() {
           DocuClipper processes statements on its servers (with security
           certifications). StatementClear parses in your browser — there is no
           server to trust, which you can verify in DevTools. For client
-          financial documents, that's a categorically different privacy
+          financial documents, that&apos;s a categorically different privacy
           posture.
         </li>
         <li>
@@ -74,8 +74,8 @@ export default function Page() {
         <Link href="/#converter" className="underline">
           try StatementClear free right now
         </Link>{" "}
-        — your first file converts and verifies before you've finished
-        DocuClipper's signup form.
+        — your first file converts and verifies before you&apos;ve finished
+        DocuClipper&apos;s signup form.
       </p>
 
       <div className="mt-12">

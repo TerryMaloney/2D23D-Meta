@@ -15,8 +15,8 @@ export default function Page() {
       <h1 className="text-3xl font-semibold">StatementClear vs MoneyThumb</h1>
       <p className="mt-3 text-ink-soft">
         MoneyThumb has sold desktop financial-file converters (2qbo Convert
-        Pro, 2convert, PDF Insights) for many years, and they're solid tools
-        with a real install base among accountants. Here's an honest read on
+        Pro, 2convert, PDF Insights) for many years, and they&apos;re solid tools
+        with a real install base among accountants. Here&apos;s an honest read on
         when each makes sense.
       </p>
 
@@ -43,7 +43,7 @@ export default function Page() {
       <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-ink-soft">
         <li>
           <span className="font-medium text-ink">Price and commitment.</span>{" "}
-          As of mid-2026, MoneyThumb's desktop converters run from around $60
+          As of mid-2026, MoneyThumb&apos;s desktop converters run from around $60
           for single-format tools to roughly $549–$599 for 2qbo Convert
           Pro/Pro+, with OCR as a paid add-on; their cloud option starts
           around $25/month for a small monthly conversion quota.
@@ -56,7 +56,7 @@ export default function Page() {
           Desktop software keeps files local — credit where due — but requires
           installs, licenses per machine, and updates. StatementClear gets the
           same files-stay-local property in a browser tab, on any machine,
-          including the one at a client's office.
+          including the one at a client&apos;s office.
         </li>
         <li>
           <span className="font-medium text-ink">Reconciliation proof on every file.</span>{" "}

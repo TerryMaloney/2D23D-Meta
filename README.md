@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# StatementClear
 
-## Getting Started
+Privacy-first bank statement converter: PDF statements → CSV · Excel (XLSX) ·
+QBO · QFX · OFX · Xero — parsed **entirely in the browser** (files never touch
+a server; there is no upload endpoint in this codebase) and **reconciled
+against the statement's own opening/closing balances** on every file.
 
-First, run the development server:
+**Operating instructions live in [OWNERS_MANUAL.md](./OWNERS_MANUAL.md)** —
+deployment (Cloudflare Pages, free), payments (Polar.sh, merchant of record),
+adding bank templates, pricing changes, analytics.
+
+## Layout
+
+| Path | What it is |
+| --- | --- |
+| `packages/parser` | Framework-free parsing engine: extraction → rows → fields → templates → generic parser → reconciliation. Fully unit-tested against generated fixture PDFs with golden files. |
+| `packages/exporters` | CSV, Xero CSV, OFX 1.02 (QBO/QFX/OFX), XLSX writers. Golden-tested. |
+| `app/` | Next.js (static export) site: converter homepage, CSV→QBO tool, pricing, 50 bank SEO pages, format pages, comparisons, 5 guides. |
+| `functions/` | The only server code: Cloudflare Pages Functions for license verify/consume (Polar proxy) and the privacy-safe event beacon. |
+| `data/` | SEO content as data (banks, guides). |
+| `e2e/` | Playwright suite, including the privacy invariant (no off-origin requests during a conversion). |
+
+## Commands
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm test             # parser + exporter suites (74 tests)
+npm run dev          # local dev
+npm run build        # static export → out/
+npm run fixtures     # regenerate synthetic statement fixtures
+NEXT_PUBLIC_TEST_MODE=true npm run build && npm run e2e  # E2E (7 tests)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Invariants (do not break)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **No statement data ever leaves the browser.** No upload endpoint, no
+   network call in the parse path, beacon payloads are enums/numbers only.
+2. **Every successful parse must reconcile.** The property test enforces
+   `verified` status on all fixtures.
+3. **No fabricated marketing.** No invented testimonials, counters, or
+   accuracy percentages — claims must be user-verifiable.
