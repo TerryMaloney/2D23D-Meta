@@ -1,0 +1,46 @@
+{
+  "templateId": "generic",
+  "currency": "USD",
+  "periodStart": "2026-04-18",
+  "periodEnd": "2026-05-22",
+  "openingBalanceCents": 50000,
+  "closingBalanceCents": 52813,
+  "reconciliationStatus": "verified",
+  "transactions": [
+    {
+      "date": "2026-05-01",
+      "postDate": "2026-05-01",
+      "description": "854338203FS8OO0Z5 Pymt Thank You",
+      "amountCents": -10000
+    },
+    {
+      "date": "2026-05-02",
+      "postDate": "2026-05-03",
+      "description": "5884186PS0388W6YM Store #1",
+      "amountCents": 1205
+    },
+    {
+      "date": "2026-05-08",
+      "postDate": "2026-05-09",
+      "description": "0544400060ZLV72VL Store #2",
+      "amountCents": 4411
+    },
+    {
+      "date": "2026-05-15",
+      "postDate": "2026-05-16",
+      "description": "55541860705RDYD0X Store #3",
+      "amountCents": 2963
+    },
+    {
+      "date": "2026-05-20",
+      "postDate": "2026-05-20",
+      "description": "9525156489SFD4545Q Late Fee",
+      "amountCents": 3500
+    },
+    {
+      "date": "2026-05-22",
+      "description": "Interest Charge on Purchases",
+      "amountCents": 734
+    }
+  ]
+}

@@ -45,11 +45,46 @@ Every entry is exercised by `packages/parser/test/real-corpus.test.ts`
 | SCANNED_PDF correctly detected | 1 (SaskMoney — image-only pages) |
 | Automatically verified | 0 |
 
-This is the honest baseline that motivated the Phase 2 parser hardening; the
-per-cause analysis and fixes are documented in the hardening commit and the
-final checkpoint. Post-hardening results are recorded in the manifest's
-`expected` fields (which the test suite enforces) and summarized in
-`CHECKPOINT_REAL_WORLD_HARDENING.md`.
+## Results after parser hardening
+
+| Outcome | Documents |
+| --- | --- |
+| **Verified to the cent** | 2 — Fed G-18(G) model form (32 tx, full credit-card reconciliation); Money Mentors (8 tx, running-balance chain) |
+| Parsed; reconciliation fails because the DOCUMENT is internally inconsistent | 2 — Commerce Bank (its summary omits $105.00 of checks its own detail lists); Carson Bank (pages stitched from different source accounts; the transaction table's own balance chain verifies at every checkpoint) |
+| Parsed partially (annotation-mangled teaching collage) | 1 — St. Paul handout |
+| UNRECOGNIZED_LAYOUT (no transaction table present) | 2 — CFPB handout + poster (stylized graphics) |
+| NOT_A_STATEMENT | 1 — UGA handout |
+| SCANNED_PDF correctly detected | 1 — SaskMoney (image-only) |
+
+Of the four documents that contain a machine-readable transaction table, **all
+four now parse**, and the two that are internally consistent both **verify to
+the cent**. The two reconciliation failures are correct verdicts about
+documents whose own printed numbers contradict themselves — fail-closed
+behavior demonstrated on real bank-published files.
+
+### Parser improvements driven by this corpus (each with committed regression coverage)
+
+1. **Summary grids excluded from transactions** — daily-balance grids and
+   checks-paid grids (Carson) are detected structurally and by section header.
+2. **Section-sign context in the generic parser** — unsigned amounts under
+   "Checks Paid" / "ATM Withdrawals & Debits" headings get their direction
+   from the section (Commerce).
+3. **Description-first rows** — a date directly before the amount after
+   reference columns is a transaction row (Commerce).
+4. **Generic credit-card detection** — statements with minimum-payment/due-date
+   markers use the purchases-positive convention without needing a template
+   (Fed G-18(G)).
+5. **Two labeled balances on one row** — `Previous Balance $535.07  New
+   Balance $1,784.53` resolves each label to its nearest amount (Fed G-18(G)).
+6. **Typeset en-dash negatives** (`$450.00–`) parse as negative (Fed G-18(G)).
+7. **Dateless "Interest Charge on …" rows** become period-end transactions on
+   card statements (Fed G-18(G)).
+8. **Lone "Statement closing date" period synthesis** for year inference.
+9. **Section headers never merge into descriptions** as continuation lines.
+
+New committed fixtures locking these behaviors: `sectioned-sample` and
+`regz-card` (synthetic, golden-tested) plus the public-domain Fed G-18(G) PDF
+itself, asserted `verified` in CI by the corpus suite.
 
 ## Private statement validation (the mechanism owners actually use)
 

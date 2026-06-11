@@ -136,6 +136,24 @@ export function detectPeriod(text: string): StatementPeriod | null {
       return { start: iso(a.year, a.month, a.day), end: iso(b.year, b.month, b.day) };
   }
 
+  // Pattern E: a lone closing date ("Statement closing date 3/22/2007",
+  // real-world: Fed G-18(G), Amex). Synthesize a one-cycle period ending
+  // there so year inference works.
+  m = text.match(
+    /(?:statement\s+)?closing\s+date:?\s+(\d{1,2}\/\d{1,2}\/(?:\d{4}|\d{2})|[A-Za-z]{3,9}\.?\s+\d{1,2},?\s+\d{4})/i,
+  );
+  if (m) {
+    const end = detectDate(m[1].replace(/\s+/g, " "));
+    if (end?.year) {
+      const endMs = Date.parse(iso(end.year, end.month, end.day) + "T00:00:00Z");
+      const start = new Date(endMs - 34 * 86400000);
+      return {
+        start: start.toISOString().slice(0, 10),
+        end: iso(end.year, end.month, end.day),
+      };
+    }
+  }
+
   return null;
 }
 

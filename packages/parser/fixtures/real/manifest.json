@@ -1,5 +1,5 @@
 {
-  "description": "Legitimately sourced public statement documents used for real-world parser validation. Provenance classes: 'official-bank-sample' (specimen published by the institution itself), 'educational-sample' (financial-literacy material), 'government-model-form' (regulatory model form). None of these are real customer statements. Files with committable=false live only in the gitignored cache/ directory and can be re-fetched from sourceUrl; committable=true files (US federal government works, public domain under 17 U.S.C. § 105) are stored in committed/.",
+  "description": "Legitimately sourced public statement documents used for real-world parser validation. Provenance classes: 'official-bank-sample' (specimen published by the institution itself), 'educational-sample' (financial-literacy material), 'government-model-form' (regulatory model form). None of these are real customer statements. Files with committable=false live only in the gitignored cache/ directory and can be re-fetched from sourceUrl; committable=true files (US federal government works, public domain under 17 U.S.C. \u00a7 105) are stored in committed/.",
   "retrievalDate": "2026-06-11",
   "entries": [
     {
@@ -9,10 +9,12 @@
       "institution": "fictional (CFPB teaching specimen)",
       "statementType": "credit-card",
       "provenance": "educational-sample",
-      "licenseBasis": "US federal government work — public domain (17 U.S.C. § 105)",
+      "licenseBasis": "US federal government work \u2014 public domain (17 U.S.C. \u00a7 105)",
       "sha256": "755073d4d13732eb9bd9b340c6ff28325741835c369a6c8b58b3f4650ffed52d",
       "committable": true,
-      "expected": { "outcome": "UNRECOGNIZED_LAYOUT" },
+      "expected": {
+        "outcome": "UNRECOGNIZED_LAYOUT"
+      },
       "limitations": "Stylized teaching graphic with callout annotations, not a bank-generated layout; transactions are not in a date-led table the engine recognizes."
     },
     {
@@ -22,10 +24,12 @@
       "institution": "fictional (CFPB teaching specimen)",
       "statementType": "credit-card",
       "provenance": "educational-sample",
-      "licenseBasis": "US federal government work — public domain (17 U.S.C. § 105)",
+      "licenseBasis": "US federal government work \u2014 public domain (17 U.S.C. \u00a7 105)",
       "sha256": "a4f240af00708caaf0f6b064f2ad0684e40fce629d84715688917db542f81fd8",
       "committable": true,
-      "expected": { "outcome": "UNRECOGNIZED_LAYOUT" },
+      "expected": {
+        "outcome": "UNRECOGNIZED_LAYOUT"
+      },
       "limitations": "Poster variant of the same teaching specimen; annotation-heavy layout."
     },
     {
@@ -35,11 +39,14 @@
       "institution": "model form (Regulation Z G-18(G))",
       "statementType": "credit-card",
       "provenance": "government-model-form",
-      "licenseBasis": "US federal government work — public domain (17 U.S.C. § 105)",
+      "licenseBasis": "US federal government work \u2014 public domain (17 U.S.C. \u00a7 105)",
       "sha256": "b2f388f0e37da0f295740ec54d1cf069bae1217abbcb51058b15fe945100d1b7",
       "committable": true,
-      "expected": { "outcome": "UNRECOGNIZED_LAYOUT" },
-      "limitations": "Regulatory model form for disclosure layout; the 2007 proposal-era PDF carries little machine-readable transaction structure."
+      "expected": {
+        "outcome": "verified",
+        "minTransactions": 32
+      },
+      "limitations": "Regulatory model form; a complete, internally consistent credit-card statement. Parses via generic credit-card detection (dateless interest rows, en-dash negatives, two-label summary rows) and reconciles to the cent."
     },
     {
       "file": "carson-bank-sample-statement.pdf",
@@ -48,11 +55,14 @@
       "institution": "Carson Bank",
       "statementType": "checking",
       "provenance": "official-bank-sample",
-      "licenseBasis": "publicly posted bank specimen; redistribution not explicitly granted — cache only",
+      "licenseBasis": "publicly posted bank specimen; redistribution not explicitly granted \u2014 cache only",
       "sha256": "f1aa9c97ef0a64fec8fac14f93153d10d1e10c305287d8400db2c2288d14fe67",
       "committable": false,
-      "expected": { "outcome": "parsed", "minTransactions": 50 },
-      "limitations": "6-page bank-generated specimen; the genuine article for layout testing."
+      "expected": {
+        "outcome": "parsed",
+        "minTransactions": 46
+      },
+      "limitations": "6-page bank-generated specimen (checking + Ready Reserve credit line). The sample's pages are stitched from different source accounts: the running balance verifies at every checkpoint inside the transaction table, but the page-1 summary block and daily-balance table cite different figures, so full reconciliation correctly reports partial. Drove the daily-balance-grid and checks-paid-grid exclusion rules."
     },
     {
       "file": "commerce-bank-statement-sample.pdf",
@@ -61,11 +71,14 @@
       "institution": "Commerce Bank",
       "statementType": "checking",
       "provenance": "official-bank-sample",
-      "licenseBasis": "publicly posted bank specimen; redistribution not explicitly granted — cache only",
+      "licenseBasis": "publicly posted bank specimen; redistribution not explicitly granted \u2014 cache only",
       "sha256": "53cb0d6fcea0691c567f874309df843df7d7386842a5443907825fc3ddeb235c",
       "committable": false,
-      "expected": { "outcome": "parsed", "minTransactions": 3 },
-      "limitations": "Single-page annotated specimen with a small transaction table."
+      "expected": {
+        "outcome": "parsed",
+        "minTransactions": 5
+      },
+      "limitations": "Single-page annotated specimen. NOTE: the document itself is internally inconsistent - its summary omits two checks ($75 + $30) that its own Checks Paid section lists, so reconciliation correctly fails by exactly $105.00. Fail-closed behavior demonstrated on a real bank-published document."
     },
     {
       "file": "stpaul-how-to-read-bank-statement.pdf",
@@ -74,11 +87,14 @@
       "institution": "fictional (teaching specimen)",
       "statementType": "checking",
       "provenance": "educational-sample",
-      "licenseBasis": "municipal educational material; redistribution not explicitly granted — cache only",
+      "licenseBasis": "municipal educational material; redistribution not explicitly granted \u2014 cache only",
       "sha256": "83173761a37b541438dd00ce3994a33c31f4814d08be0a52b7627acdc2be39e3",
       "committable": false,
-      "expected": { "outcome": "parsed", "minTransactions": 3 },
-      "limitations": "Educational handout containing a small fictional statement table."
+      "expected": {
+        "outcome": "parsed",
+        "minTransactions": 3
+      },
+      "limitations": "Educational handout with callout annotations interleaved into the table; partial extraction with failed reconciliation is the honest outcome."
     },
     {
       "file": "moneymentors-reading-bank-statement.pdf",
@@ -87,11 +103,14 @@
       "institution": "fictional (teaching specimen)",
       "statementType": "checking",
       "provenance": "educational-sample",
-      "licenseBasis": "non-profit educational material; redistribution not explicitly granted — cache only",
+      "licenseBasis": "non-profit educational material; redistribution not explicitly granted \u2014 cache only",
       "sha256": "9623a65dfe337a7d3eb1b857918b10ca9fb57a303a6cf456dc4101243e802a0a",
       "committable": false,
-      "expected": { "outcome": "NOT_A_STATEMENT" },
-      "limitations": "Lesson booklet; the statement figure is embedded as an image, so there is no extractable transaction text."
+      "expected": {
+        "outcome": "verified",
+        "minTransactions": 8
+      },
+      "limitations": "Lesson booklet whose statement figure is extractable text; parses with running-balance verification (no opening/closing labels printed)."
     },
     {
       "file": "saskmoney-sample-credit-card-statements.pdf",
@@ -100,11 +119,13 @@
       "institution": "fictional (teaching specimen)",
       "statementType": "credit-card",
       "provenance": "educational-sample",
-      "licenseBasis": "educational material; redistribution not explicitly granted — cache only",
+      "licenseBasis": "educational material; redistribution not explicitly granted \u2014 cache only",
       "sha256": "8288d899ab144550b20fec5426b96a7a6f66420327578b6d36cf926417086f39",
       "committable": false,
-      "expected": { "outcome": "SCANNED_PDF" },
-      "limitations": "Image-only pages — exercises the scanned-PDF detector, which is its value as a fixture."
+      "expected": {
+        "outcome": "SCANNED_PDF"
+      },
+      "limitations": "Image-only pages \u2014 exercises the scanned-PDF detector, which is its value as a fixture."
     },
     {
       "file": "uga-sample-credit-card-statement.pdf",
@@ -113,10 +134,12 @@
       "institution": "fictional (teaching specimen)",
       "statementType": "credit-card",
       "provenance": "educational-sample",
-      "licenseBasis": "university educational material; redistribution not explicitly granted — cache only",
+      "licenseBasis": "university educational material; redistribution not explicitly granted \u2014 cache only",
       "sha256": "60487b86d323ef2f3f2d91f68f99eea9ced7c74e3b82a3b064fd89574fd561c1",
       "committable": false,
-      "expected": { "outcome": "NOT_A_STATEMENT" },
+      "expected": {
+        "outcome": "NOT_A_STATEMENT"
+      },
       "limitations": "Multi-page handout; statement figure lacks a date-led transaction table the engine can anchor on."
     }
   ]

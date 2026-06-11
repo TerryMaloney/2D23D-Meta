@@ -1116,6 +1116,251 @@ async function multiAccount(): Promise<void> {
   ]);
 }
 
+/* ──────────── real-world regression fixtures (Phase 2 hardening) ──────────── */
+
+/**
+ * Patterns observed in the Carson Bank / Commerce Bank public specimens:
+ * description-first rows with the date directly before the amount, unsigned
+ * amounts whose sign lives in section headers, reference-number columns,
+ * a checks-paid grid, and a daily-balance grid — both grids must be
+ * excluded from transactions.
+ */
+async function sectionedSample(): Promise<void> {
+  const opening = 100000; // $1,000.00
+  const deposits = [
+    { ref: "130012345", date: "2026-05-05", cents: 50000 },
+    { ref: "130012399", date: "2026-05-12", cents: 75025 },
+    { ref: "130012444", date: "2026-05-19", cents: 120000 },
+  ];
+  const checks = [
+    { num: "1001", date: "2026-05-12", cents: 7500, ref: "00012576589" },
+    { num: "1002", date: "2026-05-18", cents: 3000, ref: "00036547854" },
+    { num: "1003", date: "2026-05-24", cents: 20000, ref: "00094613547" },
+  ];
+  const depTotal = deposits.reduce((s, d) => s + d.cents, 0);
+  const chkTotal = checks.reduce((s, c) => s + c.cents, 0);
+  const closing = opening + depTotal - chkTotal;
+
+  const b = await Builder.create();
+  b.text(50, 50, "First Sample Bank", 12, true);
+  b.text(50, 66, "Statement period 05/01/2026 - 05/31/2026", 10);
+  b.text(380, 66, "Account Number: ...4410", 9);
+
+  b.text(50, 100, "Account Summary", 11, true);
+  b.rule(116);
+  b.text(50, 128, "Beginning Balance on May 1, 2026");
+  b.right(545, 128, `$${usFmt(opening)}`);
+  b.text(50, 143, "Ending Balance on May 31, 2026");
+  b.right(545, 143, `$${usFmt(closing)}`);
+
+  let y = 178;
+  b.text(50, y, "Deposits & Other Credits", 11, true);
+  y += 18;
+  b.text(50, y, "Description", 8, true);
+  b.text(250, y, "Date Credited", 8, true);
+  b.right(545, y, "Amount", 8, true);
+  y += 15;
+  for (const d of deposits) {
+    // Description-first: date sits directly before the amount.
+    b.text(50, y, "Deposit");
+    b.text(95, y, `Ref Nbr: ${d.ref}`);
+    b.text(250, y, `${d.date.slice(5, 7)}-${d.date.slice(8, 10)}`);
+    b.right(545, y, `$${usFmt(d.cents)}`);
+    y += 14;
+  }
+  b.text(50, y, "Total Deposits & Other Credits");
+  b.right(545, y, `$${usFmt(depTotal)}`);
+  y += 26;
+
+  b.text(50, y, "Checks Paid", 11, true);
+  y += 18;
+  b.text(50, y, "Date Paid", 8, true);
+  b.text(140, y, "Check Number", 8, true);
+  b.right(420, y, "Amount", 8, true);
+  b.text(450, y, "Reference Number", 8, true);
+  y += 15;
+  for (const c of checks) {
+    // Unsigned amounts: the sign exists only in the section heading.
+    b.text(50, y, `${c.date.slice(5, 7)}-${c.date.slice(8, 10)}`);
+    b.text(140, y, c.num);
+    b.right(420, y, usFmt(c.cents));
+    b.text(450, y, c.ref);
+    y += 14;
+  }
+  b.text(50, y, "Total Checks Paid");
+  b.right(420, y, `$${usFmt(chkTotal)}`);
+  y += 26;
+
+  // Checks-paid grid (summary duplicate — must NOT become transactions).
+  b.text(50, y, "Summary of Checks", 11, true);
+  y += 16;
+  b.text(50, y, "Number Date Amount Number Date Amount", 8, true);
+  y += 14;
+  b.text(50, y, "1001");
+  b.text(95, y, "05/12/26");
+  b.right(220, y, `$${usFmt(7500)}`);
+  b.text(280, y, "1002");
+  b.text(325, y, "05/18/26");
+  b.right(450, y, `$${usFmt(3000)}`);
+  y += 14;
+  b.text(50, y, "1003");
+  b.text(95, y, "05/24/26");
+  b.right(220, y, `$${usFmt(20000)}`);
+  y += 26;
+
+  // Daily-balance grid (also must not become transactions).
+  b.text(50, y, "DAILY BALANCE SUMMARY", 11, true);
+  y += 16;
+  b.text(50, y, "Date Amount Date Amount", 8, true);
+  y += 14;
+  b.text(50, y, "05/05/2026");
+  b.right(220, y, `$${usFmt(opening + 50000)}`);
+  b.text(280, y, "05/12/2026");
+  b.right(450, y, `$${usFmt(opening + 50000 + 75025 - 7500)}`);
+  y += 14;
+  b.text(50, y, "05/31/2026");
+  b.right(220, y, `$${usFmt(closing)}`);
+
+  await write("sectioned-sample", b, {
+    templateId: "generic",
+    currency: "USD",
+    periodStart: "2026-05-01",
+    periodEnd: "2026-05-31",
+    openingBalanceCents: opening,
+    closingBalanceCents: closing,
+    reconciliationStatus: "verified",
+    transactions: [
+      ...deposits.map((d) => ({
+        date: d.date,
+        description: `Deposit Ref Nbr: ${d.ref}`,
+        amountCents: d.cents,
+      })),
+      ...checks.map((c) => ({
+        date: c.date,
+        description: c.ref,
+        amountCents: -c.cents,
+        checkNumber: c.num,
+      })),
+    ],
+  });
+}
+
+/**
+ * Patterns observed in the Fed G-18(G) model form: two labeled balances on
+ * one summary row, trailing en-dash negatives, a reference-number column
+ * with a transaction/post date pair, and dateless "Interest Charge on …"
+ * rows, with only a lone "Statement closing date" for year inference.
+ */
+async function regZCard(): Promise<void> {
+  const opening = 50000; // $500.00
+  const payment = -10000;
+  const purchases = [
+    { ref: "5884186PS0388W6YM", date: "2026-05-02", post: "2026-05-03", desc: "Store #1", cents: 1205 },
+    { ref: "0544400060ZLV72VL", date: "2026-05-08", post: "2026-05-09", desc: "Store #2", cents: 4411 },
+    { ref: "55541860705RDYD0X", date: "2026-05-15", post: "2026-05-16", desc: "Store #3", cents: 2963 },
+  ];
+  const lateFee = 3500;
+  const interest = 734;
+  const purchaseTotal = purchases.reduce((s, p) => s + p.cents, 0);
+  const closing = opening + payment + purchaseTotal + lateFee + interest;
+
+  const b = await Builder.create();
+  b.text(50, 50, "Sample Bank Card Account Statement", 12, true);
+  b.text(50, 80, "Summary of Account Activity", 10, true);
+  // Two labeled balances on ONE row.
+  b.text(50, 100, "Previous Balance");
+  b.right(260, 100, `$${usFmt(opening)}`);
+  b.text(300, 100, "New Balance");
+  b.right(545, 100, `$${usFmt(closing)}`);
+  b.text(50, 118, "Minimum Payment Due $25.00", 9);
+  b.text(300, 118, "Payment Due Date 06/20/2026", 9);
+  b.text(50, 133, "Credit limit $2,000.00", 9);
+  b.text(50, 148, "Statement closing date 5/22/2026", 9);
+
+  let y = 182;
+  b.text(50, y, "Transactions", 11, true);
+  y += 16;
+  b.text(50, y, "Reference Number", 8, true);
+  b.text(190, y, "Trans Date", 8, true);
+  b.text(250, y, "Post Date", 8, true);
+  b.text(310, y, "Description", 8, true);
+  b.right(545, y, "Amount", 8, true);
+  y += 15;
+  b.text(50, y, "Payments and Other Credits", 9, true);
+  y += 14;
+  b.text(50, y, "854338203FS8OO0Z5");
+  b.text(190, y, "5/1");
+  b.text(250, y, "5/1");
+  b.text(310, y, "Pymt Thank You");
+  b.right(545, y, `$${usFmt(Math.abs(payment))}–`); // trailing en dash
+  y += 16;
+  b.text(50, y, "Purchases", 9, true);
+  y += 14;
+  for (const p of purchases) {
+    b.text(50, y, p.ref);
+    b.text(190, y, `${Number(p.date.slice(5, 7))}/${Number(p.date.slice(8, 10))}`);
+    b.text(250, y, `${Number(p.post.slice(5, 7))}/${Number(p.post.slice(8, 10))}`);
+    b.text(310, y, p.desc);
+    b.right(545, y, `$${usFmt(p.cents)}`);
+    y += 14;
+  }
+  y += 4;
+  b.text(50, y, "Fees", 9, true);
+  y += 14;
+  b.text(50, y, "9525156489SFD4545Q");
+  b.text(190, y, "5/20");
+  b.text(250, y, "5/20");
+  b.text(310, y, "Late Fee");
+  b.right(545, y, `$${usFmt(lateFee)}`);
+  y += 14;
+  b.text(50, y, "TOTAL FEES FOR THIS PERIOD");
+  b.right(545, y, `$${usFmt(lateFee)}`);
+  y += 16;
+  b.text(50, y, "Interest Charged", 9, true);
+  y += 14;
+  // Dateless interest line.
+  b.text(50, y, "Interest Charge on Purchases");
+  b.right(545, y, `$${usFmt(interest)}`);
+  y += 14;
+  b.text(50, y, "TOTAL INTEREST FOR THIS PERIOD");
+  b.right(545, y, `$${usFmt(interest)}`);
+
+  await write("regz-card", b, {
+    templateId: "generic",
+    currency: "USD",
+    periodStart: "2026-04-18",
+    periodEnd: "2026-05-22",
+    openingBalanceCents: opening,
+    closingBalanceCents: closing,
+    reconciliationStatus: "verified",
+    transactions: [
+      {
+        date: "2026-05-01",
+        postDate: "2026-05-01",
+        description: "854338203FS8OO0Z5 Pymt Thank You",
+        amountCents: payment,
+      },
+      ...purchases.map((p) => ({
+        date: p.date,
+        postDate: p.post,
+        description: `${p.ref} ${p.desc}`,
+        amountCents: p.cents,
+      })),
+      {
+        date: "2026-05-20",
+        postDate: "2026-05-20",
+        description: "9525156489SFD4545Q Late Fee",
+        amountCents: lateFee,
+      },
+      {
+        date: "2026-05-22",
+        description: "Interest Charge on Purchases",
+        amountCents: interest,
+      },
+    ],
+  });
+}
+
 /* ─────────────────────────── main ─────────────────────────── */
 
 async function main(): Promise<void> {
@@ -1133,6 +1378,8 @@ async function main(): Promise<void> {
   await scanned();
   await nonStatement();
   await multiAccount();
+  await sectionedSample();
+  await regZCard();
   console.log("All fixtures generated.");
 }
 

@@ -1,0 +1,44 @@
+{
+  "templateId": "generic",
+  "currency": "USD",
+  "periodStart": "2026-05-01",
+  "periodEnd": "2026-05-31",
+  "openingBalanceCents": 100000,
+  "closingBalanceCents": 314525,
+  "reconciliationStatus": "verified",
+  "transactions": [
+    {
+      "date": "2026-05-05",
+      "description": "Deposit Ref Nbr: 130012345",
+      "amountCents": 50000
+    },
+    {
+      "date": "2026-05-12",
+      "description": "Deposit Ref Nbr: 130012399",
+      "amountCents": 75025
+    },
+    {
+      "date": "2026-05-19",
+      "description": "Deposit Ref Nbr: 130012444",
+      "amountCents": 120000
+    },
+    {
+      "date": "2026-05-12",
+      "description": "00012576589",
+      "amountCents": -7500,
+      "checkNumber": "1001"
+    },
+    {
+      "date": "2026-05-18",
+      "description": "00036547854",
+      "amountCents": -3000,
+      "checkNumber": "1002"
+    },
+    {
+      "date": "2026-05-24",
+      "description": "00094613547",
+      "amountCents": -20000,
+      "checkNumber": "1003"
+    }
+  ]
+}

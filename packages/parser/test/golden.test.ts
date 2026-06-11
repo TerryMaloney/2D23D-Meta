@@ -39,6 +39,8 @@ const FIXTURES = [
   "capital-one-card",
   "amex-card",
   "us-bank-checking",
+  "sectioned-sample",
+  "regz-card",
   "paypal-activity",
   "wise-statement",
 ];

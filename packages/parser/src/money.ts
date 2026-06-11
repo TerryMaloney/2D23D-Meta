@@ -70,8 +70,9 @@ export function parseAmount(
     s = s.slice(1).trim();
   }
 
-  // Trailing minus: "1234.56-".
-  if (s.endsWith("-")) {
+  // Trailing minus: "1234.56-" (also typeset en dash / minus sign,
+  // real-world: the Fed's G-18(G) model form prints "$450.00–").
+  if (/[-–−]$/.test(s)) {
     negative = true;
     explicitSign = true;
     s = s.slice(0, -1).trim();

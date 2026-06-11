@@ -33,8 +33,9 @@ export interface ClassifiedRow {
 /**
  * A date cell must sit in the left half of the row's items to count as a
  * transaction date (dates inside descriptions like "TRANSFER ON 12/02" are
- * part of the text). We approximate: only the first two non-empty items can
- * be transaction dates.
+ * part of the text). We approximate: only the first three items can be
+ * transaction dates — covering Date-first layouts, two-date pairs (Capital
+ * One), and Description | Date | Amount layouts (Commerce Bank style).
  */
 export function classifyRow(row: Row, locale: NumberLocale = "us"): ClassifiedRow {
   const dates: RowDateCell[] = [];
@@ -42,7 +43,7 @@ export function classifyRow(row: Row, locale: NumberLocale = "us"): ClassifiedRo
   const textItems: PositionedText[] = [];
 
   row.items.forEach((item, i) => {
-    const asDate = i < 2 ? detectDate(item.str) : null;
+    const asDate = i < 4 ? detectDate(item.str) : null;
     if (asDate) {
       dates.push({ itemIndex: i, date: asDate });
       return;
@@ -58,9 +59,42 @@ export function classifyRow(row: Row, locale: NumberLocale = "us"): ClassifiedRo
   return { row, dates, amounts, textItems };
 }
 
-/** True when the row starts with a date — the signature of a transaction row. */
+/**
+ * True when the row carries a transaction-date cell and an amount. The date
+ * is usually the first item, but Description | Date | Amount layouts put it
+ * second or third (real-world: Commerce Bank's "Deposit Ref Nbr … 05-15
+ * $3,615.08").
+ */
 export function isTransactionRow(c: ClassifiedRow): boolean {
-  return c.dates.length > 0 && c.dates[0].itemIndex === 0 && c.amounts.length > 0;
+  if (c.dates.length === 0 || c.amounts.length === 0) return false;
+  const dateIdx = c.dates[0].itemIndex;
+  // Date leads the row, or sits directly before the first amount after
+  // reference/description columns (real-world: Commerce Bank's
+  // "Deposit | Ref Nbr: | 130012345 | 05-15 | $3,615.08").
+  return dateIdx <= 2 || dateIdx === c.amounts[0].itemIndex - 1;
+}
+
+/**
+ * Summary grids print several value pairs per visual row and must not be
+ * read as transactions (real-world: Carson Bank). Two shapes:
+ *  - daily-balance grids: "07/16 $942.83 07/25 $842.83 07/24 $7,285.72"
+ *  - checks-paid grids:   "4421 07/12/19 $12.53 4423 07/19/19 $114.00 …"
+ * Signature: ≥2 amounts, ≥2 date-shaped cells overall, and every remaining
+ * text item is itself a date, a check number, or a break marker (*).
+ */
+export function isBalanceGridRow(c: ClassifiedRow): boolean {
+  const dateish =
+    c.dates.length + c.textItems.filter((t) => detectDate(t.str) !== null).length;
+  return (
+    dateish >= 2 &&
+    c.amounts.length >= 2 &&
+    c.textItems.every(
+      (t) =>
+        detectDate(t.str) !== null ||
+        detectCheckNumber(t.str) !== null ||
+        t.str.trim() === "*",
+    )
+  );
 }
 
 /**

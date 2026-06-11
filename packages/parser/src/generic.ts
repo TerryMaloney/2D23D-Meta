@@ -14,6 +14,7 @@ import {
   ClassifiedRow,
   clusterAmountColumns,
   detectCheckNumber,
+  isBalanceGridRow,
   isContinuationRow,
   isTransactionRow,
 } from "./fields";
@@ -100,20 +101,41 @@ interface LabeledAmount {
   rowIndex: number;
 }
 
-/** Find "Label .... 1,234.56" rows. Returns the first match. */
+/**
+ * Find "Label .... 1,234.56" rows. Returns the first match, using the
+ * amount cell NEAREST to the right of the label — summary blocks often put
+ * two labeled values on one visual row (real-world: the Fed G-18(G) form's
+ * "Previous Balance $535.07   New Balance $1,784.53").
+ */
 function findLabeledAmount(
   rows: Row[],
   labels: string[],
   locale: NumberLocale,
 ): LabeledAmount | undefined {
+  const isAmountShaped = (s: string) =>
+    /[\d]/.test(s) && /[.,]\d{2}\b|\(|\)/.test(s) && parseAmount(s, locale) !== null;
+
   for (let i = 0; i < rows.length; i++) {
+    const items = rows[i].items;
     const text = rowText(rows[i]).toLowerCase();
-    if (!labels.some((l) => text.includes(l))) continue;
-    // Use the last amount-shaped item in the row.
-    for (let j = rows[i].items.length - 1; j >= 0; j--) {
-      const a = parseAmount(rows[i].items[j].str, locale);
-      if (a !== null && /[\d]/.test(rows[i].items[j].str) && /[.,]\d{2}\b|\(|\)/.test(rows[i].items[j].str)) {
-        return { cents: a.cents, rowIndex: i };
+    const label = labels.find((l) => text.includes(l));
+    if (!label) continue;
+
+    // Locate the item carrying (the start of) the label.
+    const labelIdx = items.findIndex((it) => it.str.toLowerCase().includes(label.split(" ")[0]));
+    const labelX = labelIdx >= 0 ? items[labelIdx].x : -Infinity;
+
+    let best: { cents: number; dist: number } | undefined;
+    for (const it of items) {
+      if (it.x < labelX || !isAmountShaped(it.str)) continue;
+      const dist = it.x - labelX;
+      if (!best || dist < best.dist) best = { cents: parseAmount(it.str, locale)!.cents, dist };
+    }
+    if (best) return { cents: best.cents, rowIndex: i };
+    // Fallback: any amount in the row (label item may embed the words).
+    for (let j = items.length - 1; j >= 0; j--) {
+      if (isAmountShaped(items[j].str)) {
+        return { cents: parseAmount(items[j].str, locale)!.cents, rowIndex: i };
       }
     }
   }
@@ -181,6 +203,13 @@ interface DebitCreditMap {
 
 const CREDIT_HEADER = /\b(deposits?|credits?|additions?|amount added|money in|paid in)\b/i;
 const DEBIT_HEADER = /\b(withdrawals?|debits?|subtractions?|payments?|fees?|checks?|money out|paid out|purchases?)\b/i;
+/**
+ * Headers that open a summary table whose date-led rows are NOT transactions
+ * (daily-balance tables; check summaries that duplicate the checks already
+ * listed in transaction sections).
+ */
+const BALANCE_TABLE_HEADER =
+  /\bdaily\s+(ending\s+)?balance(s| summary| information| detail)?\b|\bsummary of (your )?checks\b|\bchecks? in (serial|numerical) order\b/i;
 
 /**
  * For separate debit/credit column layouts, work out which is which from the
@@ -240,7 +269,34 @@ export function parseSection(input: SectionParseInput): ParsedStatement {
 
   // Classify all rows once.
   const classified = rows.map((r) => classifyRow(r, locale));
-  const txRows = classified.filter(isTransactionRow);
+
+  // Exclude balance tables before anything else sees "transactions":
+  //  1. structurally — date/balance grid rows (several date+amount pairs);
+  //  2. by section — rows under a "Daily Balance Summary"-style header,
+  //     until the next transaction-section header.
+  const balanceTableRows = new Set<ClassifiedRow>();
+  let inBalanceTable = false;
+  for (const c of classified) {
+    const text = rowText(c.row);
+    // Standalone short headers only — "Ending daily balance" as one column
+    // header inside a wide transaction-table header row must not trigger.
+    if (BALANCE_TABLE_HEADER.test(text) && c.amounts.length === 0 && text.length < 40) {
+      inBalanceTable = true;
+      continue;
+    }
+    if (
+      inBalanceTable &&
+      (CREDIT_HEADER.test(text) || DEBIT_HEADER.test(text) || /^transactions?\b/i.test(text)) &&
+      c.amounts.length === 0
+    ) {
+      inBalanceTable = false;
+    }
+    if (isBalanceGridRow(c) || (inBalanceTable && isTransactionRow(c))) {
+      balanceTableRows.add(c);
+    }
+  }
+
+  const txRows = classified.filter((c) => isTransactionRow(c) && !balanceTableRows.has(c));
 
   // Amount columns across transaction rows (right-edge clusters).
   const columns = clusterAmountColumns(txRows);
@@ -278,15 +334,43 @@ export function parseSection(input: SectionParseInput): ParsedStatement {
     const c = classified[ri];
 
     if (!txRowSet.has(c)) {
-      // Section headers flip the sign context for section-based layouts.
+      // Section headers flip the sign context for section-based layouts —
+      // and being headers, they must never be merged into a description.
       const t = rowText(c.row);
+      let isSectionHeader = false;
       if (c.amounts.length === 0 && t.length < 60) {
-        if (DEBIT_HEADER.test(t) && !CREDIT_HEADER.test(t)) sectionSign = -1;
-        else if (CREDIT_HEADER.test(t)) sectionSign = 1;
+        if (DEBIT_HEADER.test(t) && !CREDIT_HEADER.test(t)) {
+          sectionSign = -1;
+          isSectionHeader = true;
+        } else if (CREDIT_HEADER.test(t)) {
+          sectionSign = 1;
+          isSectionHeader = true;
+        }
+      }
+      // Dateless interest lines on card statements ("Interest Charge on
+      // Purchases $6.31" — Fed G-18(G), Amex style) are real charges the
+      // closing balance includes. Date them at the period end.
+      if (
+        options.signConvention === "cc-purchases-positive" &&
+        /^interest charge on\b/i.test(t) &&
+        !/total/i.test(t) &&
+        c.dates.length === 0 &&
+        c.amounts.length === 1
+      ) {
+        transactions.push({
+          date: input.period?.end ?? resolveDate({ month: 12, day: 31 }, null),
+          description: c.textItems.map((x) => x.str).join(" "),
+          amountCents: Math.abs(c.amounts[0].amount.cents),
+          confidence: Math.max(0, baseConfidence - 0.1),
+          flags: ["ambiguous-date"],
+          sourcePage: c.row.page,
+        });
+        continue;
       }
       // Continuation row → merge into the previous transaction's description.
       if (
         options.multilineDescriptions &&
+        !isSectionHeader &&
         isContinuationRow(c) &&
         transactions.length > 0
       ) {
@@ -341,7 +425,13 @@ export function parseSection(input: SectionParseInput): ParsedStatement {
       flags.push("ambiguous-date");
     }
     let postDate: string | undefined;
-    if (options.twoDateColumns && c.dates.length >= 2) {
+    if (
+      c.dates.length >= 2 &&
+      (options.twoDateColumns ||
+        // Generic: adjacent date pair = transaction date + posting date
+        // (real-world: Commerce Bank's "Tran Date / Date Paid").
+        c.dates[1].itemIndex === c.dates[0].itemIndex + 1)
+    ) {
       postDate = resolveDate(c.dates[1].date, input.period);
     }
 
@@ -388,7 +478,14 @@ export function parseSection(input: SectionParseInput): ParsedStatement {
     }
 
     // Section-based layouts: sign comes from the section the row sits in.
-    if (!signResolved && options.signConvention === "section-headers" && sectionSign !== 0) {
+    // Also the last resort for "auto" — real statements (Commerce Bank's
+    // "Checks Paid", "ATM Withdrawals & Debits") print unsigned amounts
+    // whose direction exists only in the section heading.
+    if (
+      !signResolved &&
+      (options.signConvention === "section-headers" || options.signConvention === "auto") &&
+      sectionSign !== 0
+    ) {
       cents = sectionSign * Math.abs(cents);
       signResolved = true;
     }

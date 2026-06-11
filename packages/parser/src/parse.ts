@@ -17,6 +17,10 @@ import { detectPeriod } from "./dates";
 import { matchTemplate, optionsFromTemplate } from "./template-engine";
 import { ParseOutput, RawPage } from "./types";
 
+/** Credit-card statement signals (any two of these phrases co-occurring). */
+const CC_MARKERS =
+  /(minimum payment due[\s\S]*payment due date|payment due date[\s\S]*minimum payment|minimum payment due[\s\S]*credit limit|credit limit[\s\S]*minimum payment due)/i;
+
 export function parseStatement(pages: RawPage[]): ParseOutput {
   assertNotScanned(pages);
   const items = normalizePages(pages);
@@ -25,6 +29,16 @@ export function parseStatement(pages: RawPage[]): ParseOutput {
   const match = matchTemplate(prep.rawText);
   const options = optionsFromTemplate(match?.template ?? null);
   if (options.locale === "us" && !match) options.locale = prep.locale;
+
+  // Generic credit-card detection: card statements print unsigned purchases
+  // as positive (they increase the balance owed). Without this, section
+  // headings like "Purchases" would flip them negative.
+  if (!match && CC_MARKERS.test(prep.rawText)) {
+    options.signConvention = "cc-purchases-positive";
+    options.openingLabels = ["previous balance"];
+    options.closingLabels = ["new balance"];
+    options.accountType = "credit-card";
+  }
 
   // Template period override.
   let period = prep.period;
