@@ -40,9 +40,7 @@ export async function loadRawPages(pdfPath: string, password?: string): Promise<
       pageNumber: i,
       pageHeight: viewport.height,
       items: content.items
-        .filter((it): it is { str: string; transform: number[]; width: number; height: number } =>
-          "str" in it,
-        )
+        .filter((it): it is import("pdfjs-dist/types/src/display/api").TextItem => "str" in it)
         .map((it) => ({
           str: it.str,
           transform: it.transform,
