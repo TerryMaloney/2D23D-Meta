@@ -15,22 +15,26 @@ adding bank templates, pricing changes, analytics.
 
 | Path | What it is |
 | --- | --- |
-| `packages/parser` | Framework-free parsing engine: extraction → rows → fields → templates → generic parser → reconciliation. Fully unit-tested against generated fixture PDFs with golden files. |
-| `packages/exporters` | CSV, Xero CSV, OFX 1.02 (QBO/QFX/OFX), XLSX writers. Golden-tested. |
-| `app/` | Next.js (static export) site: converter homepage, CSV→QBO tool, pricing, 50 bank SEO pages, format pages, comparisons, 5 guides. |
+| `packages/parser` | Framework-free parsing engine: extraction → rows → fields → templates → generic parser → reconciliation, plus the cross-statement **audit engine**, the anonymizer, and layout-twin tooling. Unit-tested against generated fixture PDFs with golden files AND a manifest-documented real-world public corpus. |
+| `packages/exporters` | CSV, Xero CSV, OFX 1.02 (QBO/QFX/OFX), XLSX writers + the six-sheet audit workbook. Golden-tested. |
+| `app/` | Next.js (static export) site: converter homepage, **Statement History Audit** (`/audit`), CSV→QBO tool, pricing, 50 bank SEO pages, format pages, comparisons, 5 guides. |
 | `functions/` | The only server code: Cloudflare Pages Functions for license verify/consume (Polar proxy) and the privacy-safe event beacon. |
 | `data/` | SEO content as data (banks, guides). |
-| `e2e/` | Playwright suite, including the privacy invariant (no off-origin requests during a conversion). |
+| `e2e/` | Playwright suite: converter + audit flows, byte-level inspection of every export format, and the privacy invariant (no off-origin requests while converting — single files or batches). |
+| `scripts/` | Local tooling, including `validate-statements.ts` (private-statement validator emitting sanitized summaries only). |
 
 ## Commands
 
 ```bash
-npm test             # parser + exporter suites (74 tests)
-npm run dev          # local dev
-npm run build        # static export → out/
-npm run fixtures     # regenerate synthetic statement fixtures
-NEXT_PUBLIC_TEST_MODE=true npm run build && npm run e2e  # E2E (7 tests)
+npm test                  # parser + exporter + audit suites (119 tests)
+npm run dev               # local dev
+npm run build             # static export → out/
+npm run fixtures          # regenerate synthetic statement fixtures
+npm run validate:statements   # parse private PDFs locally; sanitized summary only
+NEXT_PUBLIC_TEST_MODE=true npm run build && npm run e2e  # E2E (16 tests)
 ```
+
+CI runs all of the above on every push (`.github/workflows/verify.yml`).
 
 ## Invariants (do not break)
 
