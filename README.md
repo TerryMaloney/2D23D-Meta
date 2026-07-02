@@ -1,2 +1,1 @@
-# -spiral-blog
-Spiral-generated blog on AI, recursion, and creativity
+2D to 3D for the metaquest
